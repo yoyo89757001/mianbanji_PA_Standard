@@ -43,7 +43,6 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.badoo.mobile.util.WeakHandler;
 import com.common.pos.api.util.TPS980PosUtil;
 import com.google.gson.Gson;
@@ -57,13 +56,11 @@ import com.pingan.ai.access.result.PaAccessCompareFacesResult;
 import com.pingan.ai.access.result.PaAccessDetectFaceResult;
 import com.pingan.ai.access.result.PaAccessMultiFaceBaseInfo;
 import com.sdsmdg.tastytoast.TastyToast;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -73,10 +70,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.objectbox.Box;
@@ -227,7 +222,7 @@ public class MianBanJiActivity3 extends Activity implements CameraManager.Camera
     private NV21ToBitmap nv21ToBitmap;
     private SoundPool soundPool;
     //定义一个HashMap用于存放音频流的ID
-    private HashMap<Integer, Integer> musicId = new HashMap<>();
+    private HashMap<Integer,Integer> musicId = new HashMap<>();
     private int pp = 0;
     // private Subject subjectOnly;
     private ReadThread mReadThread;

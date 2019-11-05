@@ -188,11 +188,85 @@ public class MyService {
             }
         }else {
             paAccessControl.startFrameDetect();
-            return requsBean(-1,"质量检测失败");
+            return requsBean(-1,"图片入库质量不合格");
         }
     }
 
+    //修改人员
+    @PostMapping("/editFace")
+    String EditFace(@RequestParam(name = "id") String id,
+                   @RequestParam(name = "name",required = false) String name,
+                   @RequestParam(name = "departmentName" ,required = false)String bumen,
+                   @RequestParam(name = "pepopleType",required = false)String pepopleType,
+                   @RequestParam(name = "image",required = false) MultipartFile file
+    ) throws IOException {
+        if (paAccessControl==null)
+            return requsBean(-1,"识别算法未初始化");
 
+        paAccessControl.stopFrameDetect();
+        PaAccessFaceInfo face = paAccessControl.queryFaceById(id);
+        if (face!=null){
+            PaAccessDetectFaceResult detectResult=null;
+            Bitmap bitmap=null;
+            if (file!=null){//有图片
+                bitmap=readInputStreamToBitmap(file.getStream(),file.getSize());
+                detectResult = paAccessControl.detectFaceByBitmap(bitmap);
+                if (detectResult!=null && detectResult.message== PaAccessControlMessage.RESULT_OK) {
+                    BitmapUtil.saveBitmapToSD(bitmap, MyApplication.SDPATH3, id + ".png");
+                    try {
+                        paAccessControl.deleteFaceById(face.faceId);
+                        paAccessControl.addFace(id , detectResult.feature, MyApplication.GROUP_IMAGE);
+                        Subject subject = subjectBox.query().equal(Subject_.teZhengMa, id).build().findUnique();
+                        if (subject!=null){
+                            if (name!=null)
+                                subject.setName(name);
+                            if (bumen!=null){
+                                subject.setDepartmentName(bumen);
+                            }
+                            if (pepopleType!=null){
+                                subject.setPeopleType(pepopleType);
+                            }
+                            subject.setTeZhengMa(id);
+                            subjectBox.put(subject);
+                            paAccessControl.startFrameDetect();
+                            return requsBean(0,"修改成功");
+                        }else {
+                            paAccessControl.startFrameDetect();
+                            return  requsBean(-1,"未找到人员信息!");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        paAccessControl.startFrameDetect();
+                        return requsBean(-1,e+"");
+                    }
+                }else {
+                    paAccessControl.startFrameDetect();
+                    return requsBean(-1,"图片入库质量不合格");
+                }
+            }else {//没图片只修改其他值
+                Subject subject = subjectBox.query().equal(Subject_.teZhengMa, id).build().findUnique();
+                if (subject!=null){
+                    if (name!=null)
+                        subject.setName(name);
+                    if (bumen!=null){
+                        subject.setDepartmentName(bumen);
+                    }
+                    if (pepopleType!=null){
+                        subject.setPeopleType(pepopleType);
+                    }
+                    subjectBox.put(subject);
+                    paAccessControl.startFrameDetect();
+                    return requsBean(0,"修改成功");
+                }else {
+                    paAccessControl.startFrameDetect();
+                    return  requsBean(-1,"未找到人员信息!");
+                }
+            }
+        }else {
+            paAccessControl.startFrameDetect();
+            return  requsBean(-1,"未找到人员信息!");
+        }
+    }
 
     //获取后缀名
     private  String getExtensionName(String filename) {
