@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="megvii.testfacepass.pa">
+    <!-- Required -->
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+<!--        <activity android:name=".ui.NFCActivity" android:launchMode="singleTask"/>-->
+        <activity
+            android:name=".ui.BaseActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- <activity android:name=".ui.MianBanJiActivity2"/> -->
+        <activity android:name=".ui.MianBanJiActivity3" android:launchMode="singleTask"/>
+        <activity android:name=".ui.SettingActivity" />
+        <activity android:name=".ui.YuLanActivity" />
+
+        <activity
+            android:name=".ui.SheZhiActivity2"
+            android:screenOrientation="portrait" />
+
+<!--        <activity-->
+<!--            android:name=".tps401test.nfc.NFCActivity"-->
+<!--            android:launchMode="singleTask" /> -->
+
+        <activity android:name=".ui.UserListActivity" />
+
+<!--        <meta-data-->
+<!--            android:name="design_width_in_dp"-->
+<!--            android:value="360" />-->
+
+<!--        <meta-data-->
+<!--            android:name="design_height_in_dp"-->
+<!--            android:value="640" />-->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <receiver android:name=".tuisong_jg.MessageReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <!-- 接收消息透传 -->
+                <action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE" />
+                <!-- 监听注册、反注册、设置/删除标签、通知被点击等处理结果 -->
+                <action android:name="com.tencent.android.tpush.action.FEEDBACK" />
+            </intent-filter>
+        </receiver>
+
+        <!-- <service -->
+        <!-- android:name=".ljkplay.services.MediaPlayerService" -->
+        <!-- android:enabled="false" -->
+        <!-- android:exported="false" -->
+        <!-- android:icon="@drawable/rtlogo" -->
+        <!-- android:label="@string/app_name" /> -->
+<!--        <receiver android:name=".ui.BaseActivity$MyReceiver">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                &lt;!&ndash; <category android:name="android.intent.category.HOME" /> &ndash;&gt;-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+        <!-- <receiver -->
+        <!-- android:name=".tuisong_jg.MessageReceiver" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter> -->
+        <!-- &lt;!&ndash; 接收消息透传 &ndash;&gt; -->
+        <!-- <action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE" /> -->
+        <!-- &lt;!&ndash; 监听注册、反注册、设置/删除标签、通知被点击等处理结果 &ndash;&gt; -->
+        <!-- <action android:name="com.tencent.android.tpush.action.FEEDBACK" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <service
+            android:name=".utils.killSelfService"
+            android:process=":restart" />
+
+         <receiver android:name=".ui.SheZhiActivity2$UsbBroadCastReceiver">
+         <intent-filter android:priority="1000">
+         <action android:name="android.intent.action.MEDIA_MOUNTED" />
+         <action android:name="android.intent.action.MEDIA_EJECT" />
+         <data android:scheme="file" />
+         </intent-filter>
+         </receiver>
+
+        <!--自动重启-->
+        <receiver android:name=".ui.BaseActivity$MyReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <!--<category android:name="android.intent.category.HOME" />-->
+            </intent-filter>
+        </receiver>
+
+        <!-- <service -->
+        <!-- android:name=".severs.AutoSendMsgService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true" -->
+        <!-- android:label="@string/app_name" -->
+        <!-- android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.accessibilityservice.AccessibilityService"/> -->
+        <!-- </intent-filter> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.accessibilityservice" -->
+        <!-- android:resource="@xml/auto_reply_service_config"/> -->
+        <!-- </service> -->
+        <service android:name=".dialogall.CommonDialogService" />
+
+    </application>
+
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" /> <!-- Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.DISABLE_STATUS_BAR" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Optional for location -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+</manifest>

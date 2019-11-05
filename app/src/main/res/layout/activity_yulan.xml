@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff000000"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff000000"
+        android:gravity="center">
+
+
+        <megvii.testfacepass.pa.camera.CameraPreview
+            android:id="@+id/preview"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical" />
+
+
+
+        <megvii.testfacepass.pa.camera.CameraPreview2
+            android:id="@+id/preview2"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"/>
+
+    </LinearLayout>
+
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:text="视频注册"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/jiaohu3"
+                android:id="@+id/btn_group_name"
+                android:layout_width="120dp"
+                android:layout_height="50dp" />
+
+            <Button
+                android:text="关 闭"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/jiaohu3"
+                android:id="@+id/fanhui"
+                android:layout_width="120dp"
+                android:layout_height="50dp" />
+
+            <Button
+                android:text="图片注册"
+                android:visibility="gone"
+                android:layout_marginRight="30dp"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:background="@drawable/jiaohu3"
+                android:id="@+id/btn_face_operation"
+                android:layout_width="120dp"
+                android:layout_height="50dp" />
+
+
+
+
+        </RelativeLayout>
+
+
+
+</RelativeLayout>

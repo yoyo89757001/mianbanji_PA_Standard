@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<TableLayout-->
+        <!--android:id="@+id/hud_view"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/ijk_transparent_dark"-->
+        <!--android:padding="8dp" />-->
+    <RelativeLayout
+        android:orientation="vertical"
+        android:id="@+id/toptop_ll"
+
+        android:background="@color/textcolor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:textColor="@color/white"
+            android:textSize="48px"
+            android:layout_marginTop="16px"
+            android:gravity="center"
+            android:text="智能门禁系统"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+        <megvii.testfacepass.camera.CameraPreview
+            android:id="@+id/preview"
+            android:layout_below="@+id/toptop_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    <!--<ImageView-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:id="@+id/da_bg"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+
+        <!--<megvii.testfacepass.view.FaceView-->
+            <!--android:id="@+id/fcview"-->
+            <!--android:visibility="visible"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+
+    <!--<megvii.testfacepass.view.DBG_View-->
+    <!--android:layout_width="100dp"-->
+    <!--android:id="@+id/dabg"-->
+    <!--android:background="@color/colorBar_bg"-->
+    <!--android:layout_height="100dp" />-->
+
+
+
+
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/rl1"-->
+            <!--android:layout_marginTop="30px"-->
+            <!--android:layout_marginLeft="46px"-->
+            <!--android:layout_marginRight="46px"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="44px">-->
+
+                <!--<ImageView-->
+                    <!--android:src="@drawable/logologo"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:tint="@color/blake"-->
+                    <!--android:layout_width="200px"-->
+                    <!--android:layout_height="match_parent" />-->
+
+
+                <!--<TextView-->
+                    <!--android:textColor="@color/blake"-->
+                    <!--android:textSize="40px"-->
+                    <!--android:id="@+id/xiaoshi"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent" />-->
+
+
+        <!--</RelativeLayout>-->
+
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:id="@+id/rl2"-->
+        <!--android:layout_marginTop="30px"-->
+        <!--android:layout_marginLeft="36px"-->
+        <!--android:layout_marginRight="36px"-->
+        <!--app:cardElevation="6dp"-->
+        <!--app:contentPadding="10px"-->
+        <!--app:cardCornerRadius="10dp"-->
+        <!--android:layout_below="@+id/rl1"-->
+        <!--app:cardBackgroundColor="#c5000000"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="430px">-->
+
+
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="250px">-->
+            <!--<RelativeLayout-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/fengli"-->
+                    <!--android:layout_marginLeft="20px"-->
+                    <!--android:textSize="38px"-->
+                    <!--android:layout_marginTop="10px"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+
+                <!--<TextView-->
+                <!--android:id="@+id/ziwaixian"-->
+                <!--android:layout_marginLeft="20px"-->
+                <!--android:layout_marginTop="20px"-->
+                <!--android:textSize="26px"-->
+                <!--android:text="紫外线强度"-->
+                <!--android:layout_below="@+id/fengli"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+                <!--<ImageView-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:layout_below="@+id/ziwaixian"-->
+                    <!--android:id="@+id/qiangdu_bg"-->
+                    <!--android:layout_marginLeft="20px"-->
+                    <!--android:layout_marginTop="20px"-->
+                    <!--android:layout_width="276px"-->
+                    <!--android:layout_height="56px" />-->
+            <!--</RelativeLayout>-->
+            <!--<RelativeLayout-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent">-->
+
+                <!--<megvii.testfacepass.view.ClockView-->
+                    <!--android:layout_width="130px"-->
+                    <!--android:layout_marginRight="8px"-->
+                    <!--android:layout_marginBottom="8px"-->
+                    <!--android:id="@+id/clockview"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_height="130px" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/xingqi"-->
+                    <!--android:textSize="40px"-->
+                    <!--android:layout_marginTop="10px"-->
+                    <!--android:layout_marginLeft="20px"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/riqi"-->
+                    <!--android:layout_below="@+id/xingqi"-->
+                    <!--android:textSize="36px"-->
+                    <!--android:layout_marginTop="10px"-->
+                    <!--android:layout_marginLeft="20px"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/kaoqing"-->
+                    <!--android:layout_below="@+id/riqi"-->
+                    <!--android:layout_marginLeft="20px"-->
+                    <!--android:layout_marginTop="10px"-->
+                    <!--android:textSize="26px"-->
+                    <!--android:text="考勤:10/30"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/fangke"-->
+                    <!--android:layout_marginLeft="20px"-->
+                    <!--android:layout_marginTop="10px"-->
+                    <!--android:textSize="26px"-->
+                    <!--android:text="访客:10"-->
+                    <!--android:layout_below="@+id/kaoqing"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+
+
+                <!--<View-->
+                    <!--android:layout_width="1px"-->
+                    <!--android:layout_marginTop="30px"-->
+                    <!--android:id="@+id/v11"-->
+                    <!--android:layout_marginBottom="30px"-->
+                    <!--android:background="@color/huise33"-->
+                    <!--android:layout_height="match_parent"/>-->
+
+            <!--</RelativeLayout>-->
+            <!--<RelativeLayout-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/wendu"-->
+                    <!--android:layout_marginLeft="20px"-->
+                    <!--android:layout_marginTop="20px"-->
+                    <!--android:textSize="40px"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tianqi"-->
+                    <!--android:layout_marginLeft="20px"-->
+                    <!--android:textSize="36px"-->
+                    <!--android:layout_marginTop="10px"-->
+                    <!--android:layout_below="@+id/wendu"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
+                <!--<ImageView-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:id="@+id/tianqi_im"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_marginRight="20px"-->
+                    <!--android:background="@drawable/duoyun"-->
+                    <!--android:layout_marginTop="100px"-->
+                    <!--android:layout_width="140px"-->
+                    <!--android:layout_height="130px" />-->
+
+
+                <!--<View-->
+                    <!--android:layout_width="1px"-->
+                    <!--android:layout_marginTop="30px"-->
+                    <!--android:id="@+id/v12"-->
+                    <!--android:layout_marginBottom="30px"-->
+                    <!--android:background="@color/huise33"-->
+                    <!--android:layout_height="match_parent"/>-->
+            <!--</RelativeLayout>-->
+
+        <!--</LinearLayout>-->
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:id="@+id/v13"-->
+            <!--android:layout_marginTop="250px"-->
+            <!--android:background="@color/huise33"-->
+            <!--android:layout_height="1px"/>-->
+
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_marginTop="251px"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+            <!--&lt;!&ndash;公告&ndash;&gt;-->
+            <!--<TextView-->
+                <!--android:textColor="@color/white"-->
+                <!--android:text="公告通知"-->
+                <!--android:textSize="36px"-->
+                <!--android:layout_marginTop="12px"-->
+                <!--android:layout_marginLeft="12px"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+
+            <!--<com.sunfusheng.marqueeview.MarqueeView-->
+                <!--android:textColor="@color/tabtextcolo"-->
+                <!--android:text="明天12点开会"-->
+                <!--app:mvAnimDuration="1000"-->
+                <!--app:mvDirection="bottom_to_top"-->
+                <!--app:mvInterval="3000"-->
+                <!--app:mvTextColor="@color/white"-->
+                <!--app:mvTextSize="26px"-->
+                <!--app:mvSingleLine="false"-->
+                <!--android:id="@+id/marqueeView"-->
+                <!--android:layout_marginTop="10px"-->
+                <!--android:layout_marginLeft="26px"-->
+                <!--android:layout_marginRight="26px"-->
+                <!--android:layout_marginBottom="10px"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent" />-->
+
+        <!--</LinearLayout>-->
+
+
+    <!--</android.support.v7.widget.CardView>-->
+
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:id="@+id/rl22"-->
+        <!--android:layout_below="@+id/rl2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+    <!--&lt;!&ndash;第二块&ndash;&gt;-->
+    <!--<android.support.v7.widget.CardView-->
+        <!--app:cardBackgroundColor="#c1000000"-->
+        <!--android:layout_marginTop="30px"-->
+        <!--android:layout_marginLeft="36px"-->
+        <!--android:layout_marginRight="36px"-->
+        <!--app:cardElevation="6dp"-->
+        <!--app:contentPadding="4px"-->
+        <!--app:cardCornerRadius="10dp"-->
+        <!--android:layout_weight="3"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp">-->
+
+        <!--<megvii.testfacepass.ljkplay.widget.media.IjkVideoView-->
+            <!--android:id="@+id/ijkplayview"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"/>-->
+
+        <!--<com.jude.rollviewpager.RollPagerView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/lunboview"-->
+            <!--app:rollviewpager_hint_color="#a95015e6"-->
+            <!--app:rollviewpager_hint_alpha="80"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--app:rollviewpager_play_delay="3000"/>-->
+
+    <!--</android.support.v7.widget.CardView>-->
+
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:layout_marginTop="36px"-->
+        <!--android:layout_marginBottom="20px"-->
+        <!--android:layout_marginLeft="36px"-->
+        <!--app:cardElevation="6dp"-->
+        <!--app:contentPadding="4px"-->
+        <!--app:cardCornerRadius="10dp"-->
+        <!--app:cardBackgroundColor="#c3000000"-->
+        <!--android:layout_marginRight="30px"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_height="0dp">-->
+        <!--&lt;!&ndash;底部列表&ndash;&gt;-->
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/dibuliebiao"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+        <!--</android.support.v7.widget.RecyclerView>-->
+
+    <!--</android.support.v7.widget.CardView>-->
+    <!--</LinearLayout>-->
+
+    <!--&lt;!&ndash;阴影&ndash;&gt;-->
+    <!--<ImageView-->
+        <!--android:background="#94000000"-->
+        <!--android:elevation="7dp"-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/toumingbeijing"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+
+
+    <!--&lt;!&ndash;//竖向列表&ndash;&gt;-->
+    <!--<megvii.testfacepass.view.SlowScrollView-->
+        <!--android:id="@+id/scrollView"-->
+        <!--android:elevation="7dp"-->
+        <!--android:layout_marginTop="350px"-->
+        <!--android:layout_marginBottom="340px"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!--<LinearLayout-->
+            <!--android:id="@+id/shu_liebiao"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+        <!--</LinearLayout>-->
+    <!--</megvii.testfacepass.view.SlowScrollView>-->
+
+
+    <!--&lt;!&ndash;一个列表&ndash;&gt;-->
+    <!--<RelativeLayout-->
+        <!--android:orientation="horizontal"-->
+        <!--android:id="@+id/root_layout"-->
+        <!--android:elevation="8dp"-->
+        <!--android:background="@color/transparent"-->
+        <!--android:layout_below="@+id/rl2"-->
+        <!--android:layout_marginTop="30px"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="650px">-->
+
+    <!--</RelativeLayout>-->
+
+    <megvii.testfacepass.view.MianBanJiView
+        android:id="@+id/mianbanjiview"
+        android:background="#00000000"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</RelativeLayout>

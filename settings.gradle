@@ -1,0 +1,2 @@
+include ':app', ':mianbanji_ks_standard'
+rootProject.name='mianbanji_PA_Standard'

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:autofit="http://schemas.android.com/tools"
+    android:id="@+id/rl_xiaoxi"
+    android:layout_height="match_parent">
+
+
+
+    <ImageView
+        android:background="@drawable/landian3"
+        android:id="@+id/fgfg"
+        android:layout_marginLeft="30dp"
+        android:layout_centerVertical="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
+
+        <me.grantland.widget.AutofitTextView
+            android:maxLines="2"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/fgfg"
+            autofit:minTextSize="12sp"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:id="@+id/neirong"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+
+</RelativeLayout>

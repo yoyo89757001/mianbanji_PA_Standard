@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <TextView
+        android:text="本地人员信息"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:background="@color/textcolor"
+        android:textColor="@color/white"
+        android:id="@+id/dddd"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" />
+
+
+
+    <TextView
+        android:id="@+id/renshu"
+        android:textSize="14sp"
+        android:gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:textColor="#FFAB00"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp" />
+
+    <ImageView
+        android:id="@+id/fanhui"
+        android:padding="18dp"
+        android:tint="@color/white"
+        android:src="@drawable/xiangzuo"
+        android:layout_width="70dp"
+        android:layout_height="70dp" />
+
+    <View
+        android:id="@+id/didi"
+        android:background="@color/white"
+        android:layout_below="@+id/dddd"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <EditText
+        android:textSize="20sp"
+        android:textColor="@color/blake"
+        android:paddingLeft="20dp"
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/didi"
+        android:background="@drawable/zhongkong_tuhuang"
+        android:id="@+id/sousuo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <ListView
+        android:layout_below="@+id/sousuo"
+        android:id="@+id/recyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    </ListView>
+
+
+</RelativeLayout>

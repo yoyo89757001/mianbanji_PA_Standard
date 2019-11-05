@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="305dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title2"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text="填写绑定信息"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorBar_bg" />
+
+        <LinearLayout
+            android:id="@+id/llllll"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="机器名称:"
+                android:textColor="@color/blake"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:maxLength="24"
+                android:paddingLeft="16dp"
+                android:textColor="@color/textcolor"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorBar_bg" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="机器类型:"
+                android:textColor="@color/blake"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/leixing"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:background="@null"
+                android:maxLines="1"
+                android:hint="1是刷脸+刷卡,2是只刷卡"
+                android:inputType="number"
+                android:gravity="center_vertical"
+                android:maxLength="1"
+                android:paddingLeft="16dp"
+                android:textColor="@color/textcolor"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorBar_bg" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="机器位置:"
+                android:textColor="@color/blake"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/weizhi"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:maxLength="24"
+                android:paddingLeft="16dp"
+                android:textColor="@color/textcolor"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorBar_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/queren"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="确认"
+                android:textColor="@color/colorBar_bg"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="0.6dp"
+                android:layout_height="match_parent"
+                android:background="@color/tabtextcolo" />
+
+            <Button
+                android:id="@+id/quxiao"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="关闭"
+                android:textColor="@color/colorBar_bg"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
