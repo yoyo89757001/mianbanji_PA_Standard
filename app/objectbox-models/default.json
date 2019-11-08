@@ -855,9 +855,45 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "15:6166091886650491321",
+      "lastPropertyId": "7:1461501341078403285",
+      "name": "HuiFuBean",
+      "properties": [
+        {
+          "id": "1:7130634602737365707",
+          "name": "id"
+        },
+        {
+          "id": "2:182016326333270263",
+          "name": "pepopleId"
+        },
+        {
+          "id": "3:3403622580228979454",
+          "name": "pepopleType"
+        },
+        {
+          "id": "4:2949973948446428417",
+          "name": "type"
+        },
+        {
+          "id": "5:2490141887901862277",
+          "name": "msg"
+        },
+        {
+          "id": "6:4175019970270057415",
+          "name": "shortId"
+        },
+        {
+          "id": "7:1461501341078403285",
+          "name": "serialnumber"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "14:3350548654480358387",
+  "lastEntityId": "15:6166091886650491321",
   "lastIndexId": "1:4648755662043650393",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

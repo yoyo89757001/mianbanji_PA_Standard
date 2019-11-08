@@ -317,7 +317,7 @@
     },
     {
       "id": "6:1365004493588084203",
-      "lastPropertyId": "50:1103791151377309089",
+      "lastPropertyId": "51:7799908312361168319",
       "name": "BaoCunBean",
       "properties": [
         {
@@ -437,10 +437,6 @@
           "name": "huoTiFZ"
         },
         {
-          "id": "31:2706771088561033140",
-          "name": "dangqianChengShi"
-        },
-        {
           "id": "32:1300655067926264129",
           "name": "dangqianChengShi2"
         },
@@ -515,6 +511,10 @@
         {
           "id": "50:1103791151377309089",
           "name": "port"
+        },
+        {
+          "id": "51:7799908312361168319",
+          "name": "shualianhuidiaodizhi"
         }
       ],
       "relations": []
@@ -855,9 +855,41 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "15:6166091886650491321",
+      "lastPropertyId": "6:4175019970270057415",
+      "name": "HuiFuBean",
+      "properties": [
+        {
+          "id": "1:7130634602737365707",
+          "name": "id"
+        },
+        {
+          "id": "2:182016326333270263",
+          "name": "pepopleId"
+        },
+        {
+          "id": "3:3403622580228979454",
+          "name": "pepopleType"
+        },
+        {
+          "id": "4:2949973948446428417",
+          "name": "type"
+        },
+        {
+          "id": "5:2490141887901862277",
+          "name": "msg"
+        },
+        {
+          "id": "6:4175019970270057415",
+          "name": "shortId"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "14:3350548654480358387",
+  "lastEntityId": "15:6166091886650491321",
   "lastIndexId": "1:4648755662043650393",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
@@ -866,7 +898,8 @@
   "retiredEntityUids": [],
   "retiredIndexUids": [],
   "retiredPropertyUids": [
-    7532737622898207040
+    7532737622898207040,
+    2706771088561033140
   ],
   "retiredRelationUids": [],
   "version": 1

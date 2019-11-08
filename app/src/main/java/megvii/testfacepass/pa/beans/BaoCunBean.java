@@ -9,7 +9,6 @@ import io.objectbox.annotation.Uid;
  * Created by Administrator on 2017/9/15.
  */
 @Entity
-
 public class BaoCunBean {
     @Id(assignable = true)
     private Long id;

@@ -49,7 +49,7 @@ public class MyService {
 
     private Box<Subject> subjectBox  = MyApplication.myApplication.getSubjectBox();;
     private PaAccessControl paAccessControl=PaAccessControl.getInstance();
-    private  String serialnumber= GetDeviceId.getDeviceId(MyApplication.myApplication);
+    private  String serialnumber= MyApplication.myApplication.getBaoCunBeanBox().get(123456).getJihuoma();
 
     @PostMapping("/deleteFacee")
      String deleteFacee(

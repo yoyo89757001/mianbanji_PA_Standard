@@ -21,16 +21,17 @@ import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import megvii.testfacepass.pa.beans.BaoCunBean;
 import megvii.testfacepass.pa.beans.BenDiJiLuBean;
-import megvii.testfacepass.pa.beans.ChengShiIDBean;
+
 import megvii.testfacepass.pa.beans.DaKaBean;
-import megvii.testfacepass.pa.beans.GuanHuai;
+
+import megvii.testfacepass.pa.beans.HuiFuBean;
 import megvii.testfacepass.pa.beans.IDCardBean;
-import megvii.testfacepass.pa.beans.LunBoBean;
+
 import megvii.testfacepass.pa.beans.MyObjectBox;
 import megvii.testfacepass.pa.beans.Subject;
-import megvii.testfacepass.pa.beans.TodayBean;
-import megvii.testfacepass.pa.beans.XinXiAll;
-import megvii.testfacepass.pa.beans.XinXiIdBean;
+
+
+
 import megvii.testfacepass.pa.dialogall.CommonData;
 import megvii.testfacepass.pa.dialogall.CommonDialogService;
 import megvii.testfacepass.pa.dialogall.ToastUtils;
@@ -43,14 +44,14 @@ import megvii.testfacepass.pa.dialogall.ToastUtils;
 public class MyApplication extends Application implements Application.ActivityLifecycleCallbacks {
 
     public static MyApplication myApplication;
-    private Box<ChengShiIDBean> chengShiIDBeanBox=null;
+    //private Box<ChengShiIDBean> chengShiIDBeanBox=null;
     private Box<BaoCunBean> baoCunBeanBox=null;
     private Box<Subject> subjectBox=null;
-    private Box<LunBoBean> lunBoBeanBox=null;
-    private Box<XinXiAll> xinXiAllBox=null;
-    private Box<XinXiIdBean> xinXiIdBeanBox= null;
-    private Box<GuanHuai> guanHuaiBox=null;
-    private Box<TodayBean> todayBeanBox = null;
+    //private Box<LunBoBean> lunBoBeanBox=null;
+   // private Box<XinXiAll> xinXiAllBox=null;
+   // private Box<XinXiIdBean> xinXiIdBeanBox= null;
+   // private Box<GuanHuai> guanHuaiBox=null;
+    private Box<HuiFuBean> huiFuBeanBox = null;
     private Box<BenDiJiLuBean> benDiJiLuBeanBox = null;
     private Box<DaKaBean> daKaBeanBox = null;
     private Box<IDCardBean> idCardBeanBox = null;
@@ -116,14 +117,14 @@ public class MyApplication extends Application implements Application.ActivityLi
 
         baoCunBeanBox= mBoxStore.boxFor(BaoCunBean.class);
         subjectBox= mBoxStore.boxFor(Subject.class);
-        lunBoBeanBox= mBoxStore.boxFor(LunBoBean.class);
-        xinXiAllBox= mBoxStore.boxFor(XinXiAll.class);
-        xinXiIdBeanBox= mBoxStore.boxFor(XinXiIdBean.class);
-        guanHuaiBox= mBoxStore.boxFor(GuanHuai.class);
-        chengShiIDBeanBox= mBoxStore.boxFor(ChengShiIDBean.class);
-        todayBeanBox= mBoxStore.boxFor(TodayBean.class);
+        huiFuBeanBox= mBoxStore.boxFor(HuiFuBean.class);
+      //  xinXiAllBox= mBoxStore.boxFor(XinXiAll.class);
+       // xinXiIdBeanBox= mBoxStore.boxFor(XinXiIdBean.class);
+      //  guanHuaiBox= mBoxStore.boxFor(GuanHuai.class);
+       // chengShiIDBeanBox= mBoxStore.boxFor(ChengShiIDBean.class);
+      //  todayBeanBox= mBoxStore.boxFor(TodayBean.class);
         benDiJiLuBeanBox= mBoxStore.boxFor(BenDiJiLuBean.class);
-        chengShiIDBeanBox= mBoxStore.boxFor(ChengShiIDBean.class);
+      //  chengShiIDBeanBox= mBoxStore.boxFor(ChengShiIDBean.class);
         daKaBeanBox= mBoxStore.boxFor(DaKaBean.class);
         idCardBeanBox= mBoxStore.boxFor(IDCardBean.class);
 
@@ -207,34 +208,34 @@ public class MyApplication extends Application implements Application.ActivityLi
 
     }
 
-    public Box<TodayBean> getTodayBeanBox(){
-        return todayBeanBox;
-    }
+  //  public Box<TodayBean> getTodayBeanBox(){
+      //  return todayBeanBox;
+   // }
 
     public Box<BenDiJiLuBean> getBenDiJiLuBeanBox(){
         return benDiJiLuBeanBox;
     }
-    public Box<ChengShiIDBean> getChengShiIDBeanBox(){
-        return chengShiIDBeanBox;
-    }
+   // public Box<ChengShiIDBean> getChengShiIDBeanBox(){
+      //  return chengShiIDBeanBox;
+   // }
 
     public Box<Subject> getSubjectBox(){
         return subjectBox;
     }
 
-    public Box<LunBoBean> getLunBoBeanBox(){
-        return lunBoBeanBox;
+    public Box<HuiFuBean> getHuiFuBeanBox(){
+        return huiFuBeanBox;
     }
-
-    public Box<XinXiAll> getXinXiAllBox(){
-        return xinXiAllBox;
-    }
-    public Box<XinXiIdBean> getXinXiIdBeanBox(){
-        return xinXiIdBeanBox;
-    }
-    public Box<GuanHuai> getGuanHuaiBox(){
-        return guanHuaiBox;
-    }
+//
+//    public Box<XinXiAll> getXinXiAllBox(){
+//        return xinXiAllBox;
+//    }
+//    public Box<XinXiIdBean> getXinXiIdBeanBox(){
+//        return xinXiIdBeanBox;
+//    }
+//    public Box<GuanHuai> getGuanHuaiBox(){
+//        return guanHuaiBox;
+//    }
     public Box<BaoCunBean> getBaoCunBeanBox(){
         return baoCunBeanBox;
     }

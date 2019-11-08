@@ -80,6 +80,7 @@ import megvii.testfacepass.pa.utils.BitmapUtil;
 import megvii.testfacepass.pa.utils.DateUtils;
 import megvii.testfacepass.pa.utils.DiaLogUtil;
 
+import megvii.testfacepass.pa.utils.FaceInit;
 import megvii.testfacepass.pa.utils.FileUtil;
 
 import megvii.testfacepass.pa.utils.GsonUtil;
@@ -170,7 +171,7 @@ public class SheZhiActivity2 extends Activity {
         options1Items.add(new JsonBean("天波"));
         options1Items.add(new JsonBean("涂鸦"));
         baoCunBeanDao = MyApplication.myApplication.getBaoCunBeanBox();
-        chengShiIDBeanBox = MyApplication.myApplication.getChengShiIDBeanBox();
+       // chengShiIDBeanBox = MyApplication.myApplication.getChengShiIDBeanBox();
         baoCunBean=baoCunBeanDao.get(123456L);
        // mFacePassHandler=MyApplication.myApplication.getFacePassHandler();
         EventBus.getDefault().register(this);//订阅
@@ -366,20 +367,20 @@ public class SheZhiActivity2 extends Activity {
             case R.id.rl2:
                 bangDingDialog = new BangDingDialog(SheZhiActivity2.this);
                 bangDingDialog.setCanceledOnTouchOutside(false);
-                bangDingDialog.setContents(baoCunBean.getName(),baoCunBean.getLeixing(),baoCunBean.getWeizhi());
+                bangDingDialog.setContents(baoCunBean.getJihuoma()+"",null);
                 bangDingDialog.setOnQueRenListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        baoCunBean.setName(bangDingDialog.getName());
-                        baoCunBean.setLeixing(bangDingDialog.getLeiXing());
-                        baoCunBean.setWeizhi(bangDingDialog.getWeizhi());
-                        baoCunBeanDao.put(baoCunBean);
-                        if (FileUtil.getIPAddress(getApplicationContext())==null){
-                            TastyToast.makeText(SheZhiActivity2.this,"请先连接网络",TastyToast.LENGTH_LONG,TastyToast.ERROR).show();
-                            return;
+                        String jihuoma=bangDingDialog.getZhuCeMa();
+                        String[] jhm = jihuoma.split("-");
+                        if (jhm.length==5){
+                            baoCunBean.setJihuoma(jihuoma);
+                            baoCunBeanDao.put(baoCunBean);
+                            Log.d("SheZhiActivity2", "保存激活码成功");
                         }
-                        link_uplodexiazai(baoCunBean.getName(),baoCunBean.getLeixing(),baoCunBean.getWeizhi());
-                        bangDingDialog.dismiss();
+                        FaceInit init=new FaceInit(SheZhiActivity2.this);
+                        init.init(jihuoma,baoCunBean);
+                        bangDingDialog.jiazai();
                     }
                 });
                 bangDingDialog.setCanceledOnTouchOutside(false);
