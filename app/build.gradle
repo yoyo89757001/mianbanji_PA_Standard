@@ -102,6 +102,7 @@ dependencies {
     annotationProcessor 'com.yanzhenjie.andserver:processor:2.0.5'//小服务器
     //implementation 'me.jessyan:autosize:1.1.2'//屏幕适配
     implementation 'com.alibaba:fastjson:1.1.71.android'
+    implementation 'com.google.zxing:core:3.4.0'
   //  implementation 'com.github.licheedev.Android-SerialPort-API:serialport:1.0.1'
 //    //信鸽jar，不包含厂商通道
 //    implementation  'com.tencent.xinge:xinge:4.3.5-release'

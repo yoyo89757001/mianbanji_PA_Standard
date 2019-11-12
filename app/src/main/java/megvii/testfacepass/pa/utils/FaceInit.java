@@ -81,11 +81,11 @@ public class FaceInit {
     public void init(String registration, BaoCunBean baoCunBean){
         this.baoCunBean=baoCunBean;
 
-        if (baoCunBean.getXgToken()==null || baoCunBean.getXgToken().equals("")){
-            EventBus.getDefault().post("注册推送失败,请重启设备后再试");
-        }else {
+//        if (baoCunBean.getXgToken()==null || baoCunBean.getXgToken().equals("")){
+//            EventBus.getDefault().post("注册推送失败,请重启设备后再试");
+//        }else {
             link_uplod(registration,baoCunBean.getHoutaiDiZhi());
-        }
+  //      }
 
     }
 
