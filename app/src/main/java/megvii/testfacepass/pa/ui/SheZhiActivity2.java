@@ -1,14 +1,11 @@
 package megvii.testfacepass.pa.ui;
 
 import android.app.Activity;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -19,10 +16,8 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
-
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
@@ -33,7 +28,6 @@ import com.pingan.ai.access.common.PaAccessControlMessage;
 import com.pingan.ai.access.manager.PaAccessControl;
 import com.pingan.ai.access.result.PaAccessDetectFaceResult;
 import com.sdsmdg.tastytoast.TastyToast;
-
 import com.zyao89.view.zloading.ZLoadingDialog;
 import com.zyao89.view.zloading.Z_TYPE;
 
@@ -43,26 +37,20 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 
 import java.io.File;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.objectbox.Box;
-
 import megvii.testfacepass.pa.MyApplication;
 import megvii.testfacepass.pa.R;
 import megvii.testfacepass.pa.beans.BaoCunBean;
-
 import megvii.testfacepass.pa.beans.ChengShiIDBean;
 import megvii.testfacepass.pa.beans.DaKaBean;
-
-
 import megvii.testfacepass.pa.beans.JsonBean;
 import megvii.testfacepass.pa.beans.Subject;
 import megvii.testfacepass.pa.dialog.BangDingDialog;
@@ -74,15 +62,12 @@ import megvii.testfacepass.pa.dialog.XiuGaiSBFZDialog;
 import megvii.testfacepass.pa.dialog.XiuGaiYuYinDialog;
 import megvii.testfacepass.pa.dialog.XiuGaigGSMDialog;
 import megvii.testfacepass.pa.dialog.YuYingDialog;
-
 import megvii.testfacepass.pa.dialogall.ToastUtils;
 import megvii.testfacepass.pa.utils.BitmapUtil;
 import megvii.testfacepass.pa.utils.DateUtils;
 import megvii.testfacepass.pa.utils.DiaLogUtil;
-
 import megvii.testfacepass.pa.utils.FaceInit;
 import megvii.testfacepass.pa.utils.FileUtil;
-
 import megvii.testfacepass.pa.utils.GsonUtil;
 import megvii.testfacepass.pa.utils.RestartAPPTool;
 import okhttp3.Call;
@@ -136,28 +121,30 @@ public class SheZhiActivity2 extends Activity {
     LinearLayout fanhui_ll;
     @BindView(R.id.chengshi)
     TextView chengshi;
-  //  JiaZaiDialog dddd;
+    @BindView(R.id.switchs56)
+    Switch switchs56;
+    //  JiaZaiDialog dddd;
     private ZLoadingDialog zLoadingDialog;
-    private  final String group_name = "facepasstestx";
-    private BangDingDialog bangDingDialog=null;
+    private final String group_name = "facepasstestx";
+    private BangDingDialog bangDingDialog = null;
     private Box<BaoCunBean> baoCunBeanDao = null;
     private BaoCunBean baoCunBean = null;
-   // public OkHttpClient okHttpClient = null;
+    // public OkHttpClient okHttpClient = null;
     private ArrayList<JsonBean> options1Items = new ArrayList<>();//省
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();//市
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();//区
     private Box<ChengShiIDBean> chengShiIDBeanBox;
     private static String usbPath = null;
-   // private int shibai;
-    private Box<DaKaBean> daKaBeanBox=MyApplication.myApplication.getDaKaBeanBox();
-    private Box<Subject> subjectBox=MyApplication.myApplication.getSubjectBox();
-    private boolean isT=true;
+    // private int shibai;
+    private Box<DaKaBean> daKaBeanBox = MyApplication.myApplication.getDaKaBeanBox();
+    private Box<Subject> subjectBox = MyApplication.myApplication.getSubjectBox();
+    private boolean isT = true;
     /* SDK 实例对象 */
-   // FacePassHandler mFacePassHandler;
-    private int shibai=-1;
+    // FacePassHandler mFacePassHandler;
+    private int shibai = -1;
     private StringBuilder stringBuilder2 = new StringBuilder();
-    private PaAccessControl paAccessControl=null;
-    private boolean isFF =false,isFG=true;
+    private PaAccessControl paAccessControl = null;
+    private boolean isFF = false, isFG = true;
 
 
     @Override
@@ -171,15 +158,20 @@ public class SheZhiActivity2 extends Activity {
         options1Items.add(new JsonBean("天波"));
         options1Items.add(new JsonBean("涂鸦"));
         baoCunBeanDao = MyApplication.myApplication.getBaoCunBeanBox();
-       // chengShiIDBeanBox = MyApplication.myApplication.getChengShiIDBeanBox();
-        baoCunBean=baoCunBeanDao.get(123456L);
-       // mFacePassHandler=MyApplication.myApplication.getFacePassHandler();
+        // chengShiIDBeanBox = MyApplication.myApplication.getChengShiIDBeanBox();
+        baoCunBean = baoCunBeanDao.get(123456L);
+        // mFacePassHandler=MyApplication.myApplication.getFacePassHandler();
         EventBus.getDefault().register(this);//订阅
 
-        if (baoCunBean.isHuoTi()){
+        if (baoCunBean.isHuoTi()) {
             switchs.setChecked(true);
-        }else {
+        } else {
             switchs.setChecked(false);
+        }
+        if (baoCunBean.isShowShiPingLiu()) {
+            switchs56.setChecked(true);
+        } else {
+            switchs56.setChecked(false);
         }
         switchs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -219,7 +211,7 @@ public class SheZhiActivity2 extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if (!isFF){
+                if (!isFF) {
                     isFF = true;
                     ZLoadingDialog zLoadingDialog = new ZLoadingDialog(SheZhiActivity2.this);
 
@@ -232,9 +224,30 @@ public class SheZhiActivity2 extends Activity {
                             .setDialogBackgroundColor(Color.parseColor("#CC111111")) // 设置背景色，默认白色
                             .show();
 
-                }else {
-                    isFF=false;
+                } else {
+                    isFF = false;
 
+                }
+
+
+            }
+        });
+        switchs56.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+                    baoCunBean.setShowShiPingLiu(true);
+                    baoCunBeanDao.put(baoCunBean);
+                    Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "门禁密码已开启", TastyToast.LENGTH_LONG, TastyToast.INFO);
+                    tastyToast.setGravity(Gravity.CENTER, 0, 0);
+                    tastyToast.show();
+                } else {
+                    baoCunBean.setShowShiPingLiu(false);
+                    baoCunBeanDao.put(baoCunBean);
+                    Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "门禁密码已关闭", TastyToast.LENGTH_LONG, TastyToast.INFO);
+                    tastyToast.setGravity(Gravity.CENTER, 0, 0);
+                    tastyToast.show();
                 }
 
 
@@ -250,7 +263,6 @@ public class SheZhiActivity2 extends Activity {
     }
 
 
-
 //    @Override
 //    public void onNewIntent(Intent intent) {
 //      //  super.onNewIntent(intent);
@@ -259,9 +271,7 @@ public class SheZhiActivity2 extends Activity {
 //    }
 
 
-
-
-    @OnClick({R.id.rl1,R.id.rl11,R.id.rl12, R.id.rl2, R.id.rl3, R.id.rl4, R.id.rl5, R.id.rl6, R.id.rl7,R.id.rl8, R.id.rl9,R.id.rl13,R.id.rl14,R.id.rl15,R.id.rl16,R.id.rl17,R.id.rl28,R.id.daochu,R.id.rl33})
+    @OnClick({R.id.rl1, R.id.rl11, R.id.rl12, R.id.rl2, R.id.rl3, R.id.rl4, R.id.rl5, R.id.rl6, R.id.rl7, R.id.rl8, R.id.rl9, R.id.rl13, R.id.rl14, R.id.rl15, R.id.rl16, R.id.rl17, R.id.rl28, R.id.daochu, R.id.rl33})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl1: {
@@ -313,7 +323,7 @@ public class SheZhiActivity2 extends Activity {
             case R.id.rl12: {
                 final XiuGaiDiZhiDialog diZhiDialog = new XiuGaiDiZhiDialog(SheZhiActivity2.this);
                 diZhiDialog.setCanceledOnTouchOutside(false);
-                diZhiDialog.setContents("设置端口号", baoCunBean.getPort()+"", null);
+                diZhiDialog.setContents("设置端口号", baoCunBean.getPort() + "", null);
                 diZhiDialog.setOnQueRenListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -322,7 +332,7 @@ public class SheZhiActivity2 extends Activity {
                             baoCunBean.setPort(pp);
                             baoCunBeanDao.put(baoCunBean);
                             diZhiDialog.dismiss();
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                             Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "输入的端口号非数字", TastyToast.LENGTH_LONG, TastyToast.INFO);
                             tastyToast.setGravity(Gravity.CENTER, 0, 0);
@@ -367,19 +377,19 @@ public class SheZhiActivity2 extends Activity {
             case R.id.rl2:
                 bangDingDialog = new BangDingDialog(SheZhiActivity2.this);
                 bangDingDialog.setCanceledOnTouchOutside(false);
-                bangDingDialog.setContents(baoCunBean.getJihuoma()+"",null);
+                bangDingDialog.setContents(baoCunBean.getJihuoma() + "", null);
                 bangDingDialog.setOnQueRenListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String jihuoma=bangDingDialog.getZhuCeMa();
+                        String jihuoma = bangDingDialog.getZhuCeMa();
                         String[] jhm = jihuoma.split("-");
-                        if (jhm.length==5){
+                        if (jhm.length == 5) {
                             baoCunBean.setJihuoma(jihuoma);
                             baoCunBeanDao.put(baoCunBean);
                             Log.d("SheZhiActivity2", "保存激活码成功");
                         }
-                        FaceInit init=new FaceInit(SheZhiActivity2.this);
-                        init.init(jihuoma,baoCunBean);
+                        FaceInit init = new FaceInit(SheZhiActivity2.this);
+                        init.init(jihuoma, baoCunBean);
                         bangDingDialog.jiazai();
                     }
                 });
@@ -482,21 +492,21 @@ public class SheZhiActivity2 extends Activity {
 
                 final XiuGaiMiMaDialog diZhiDialog2 = new XiuGaiMiMaDialog(SheZhiActivity2.this);
                 diZhiDialog2.setCanceledOnTouchOutside(false);
-                diZhiDialog2.setContents(baoCunBean.getMima()+"", "修改设置密码");
+                diZhiDialog2.setContents(baoCunBean.getMima() + "", "修改设置密码");
                 diZhiDialog2.setOnQueRenListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
-                            if (Integer.valueOf(diZhiDialog2.getUrl()).equals(Integer.valueOf(diZhiDialog2.getUrl2()))){
+                            if (Integer.valueOf(diZhiDialog2.getUrl()).equals(Integer.valueOf(diZhiDialog2.getUrl2()))) {
                                 baoCunBean.setMima(Integer.valueOf(diZhiDialog2.getUrl()));
                                 baoCunBeanDao.put(baoCunBean);
                                 diZhiDialog2.dismiss();
-                            }else {
+                            } else {
                                 Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "两次密码不一致", TastyToast.LENGTH_LONG, TastyToast.INFO);
                                 tastyToast.setGravity(Gravity.CENTER, 0, 0);
                                 tastyToast.show();
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                             Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "密码非数字", TastyToast.LENGTH_LONG, TastyToast.INFO);
                             tastyToast.setGravity(Gravity.CENTER, 0, 0);
@@ -521,21 +531,21 @@ public class SheZhiActivity2 extends Activity {
 
                 final XiuGaiMiMaDialog diZhiDialog3 = new XiuGaiMiMaDialog(SheZhiActivity2.this);
                 diZhiDialog3.setCanceledOnTouchOutside(false);
-                diZhiDialog3.setContents(baoCunBean.getMima2()+"", "修改门禁密码");
+                diZhiDialog3.setContents(baoCunBean.getMima2() + "", "修改门禁密码");
                 diZhiDialog3.setOnQueRenListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
-                            if (Integer.valueOf(diZhiDialog3.getUrl()).equals(Integer.valueOf(diZhiDialog3.getUrl2()))){
+                            if (Integer.valueOf(diZhiDialog3.getUrl()).equals(Integer.valueOf(diZhiDialog3.getUrl2()))) {
                                 baoCunBean.setMima2(Integer.valueOf(diZhiDialog3.getUrl()));
                                 baoCunBeanDao.put(baoCunBean);
                                 diZhiDialog3.dismiss();
-                            }else {
+                            } else {
                                 Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "两次密码不一致", TastyToast.LENGTH_LONG, TastyToast.INFO);
                                 tastyToast.setGravity(Gravity.CENTER, 0, 0);
                                 tastyToast.show();
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                             Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "密码非数字", TastyToast.LENGTH_LONG, TastyToast.INFO);
                             tastyToast.setGravity(Gravity.CENTER, 0, 0);
@@ -588,8 +598,8 @@ public class SheZhiActivity2 extends Activity {
                 break;
             case R.id.rl15:
 
-                final XiuGaigGSMDialog xiuGaigGSMDialog=new XiuGaigGSMDialog(SheZhiActivity2.this);
-                xiuGaigGSMDialog.setContents(baoCunBean.getWenzi1(),null);
+                final XiuGaigGSMDialog xiuGaigGSMDialog = new XiuGaigGSMDialog(SheZhiActivity2.this);
+                xiuGaigGSMDialog.setContents(baoCunBean.getWenzi1(), null);
                 xiuGaigGSMDialog.setOnQueRenListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -656,38 +666,38 @@ public class SheZhiActivity2 extends Activity {
             case R.id.rl17:
                 rl17.setEnabled(false);
 
-                if (usbPath!=null){
-                    ToastUtils.getInstances().showDialog("获取图片","获取图片",0);
+                if (usbPath != null) {
+                    ToastUtils.getInstances().showDialog("获取图片", "获取图片", 0);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            List<String> strings=new ArrayList<>();
-                            FileUtil.getAllFiles(usbPath+ File.separator+"入库照片",strings);
-                           // FacePassHandler facePassHandler=MyApplication.myApplication.getFacePassHandler();
-                          //  Log.d("SheZhiActivity", "facePassHandler:" + facePassHandler);
-                            if (paAccessControl==null)
+                            List<String> strings = new ArrayList<>();
+                            FileUtil.getAllFiles(usbPath + File.separator + "入库照片", strings);
+                            // FacePassHandler facePassHandler=MyApplication.myApplication.getFacePassHandler();
+                            //  Log.d("SheZhiActivity", "facePassHandler:" + facePassHandler);
+                            if (paAccessControl == null)
                                 return;
-                            int size=strings.size();
-                            if (size==0){
+                            int size = strings.size();
+                            if (size == 0) {
                                 EventBus.getDefault().post("未找到入库图片");
                             }
-                            for (int i=0;i<size;i++){
+                            for (int i = 0; i < size; i++) {
                                 try {
-                                    String sp=strings.get(i);
-                                    String name="";
-                                    String names= sp.substring(sp.lastIndexOf("/")+1,sp.length());
-                                    name=names.replace(".jpg","")
-                                            .replace(".png","")
-                                            .replace(".jpeg","");
+                                    String sp = strings.get(i);
+                                    String name = "";
+                                    String names = sp.substring(sp.lastIndexOf("/") + 1, sp.length());
+                                    name = names.replace(".jpg", "")
+                                            .replace(".png", "")
+                                            .replace(".jpeg", "");
 
 
-                                    long ididiid=System.currentTimeMillis();
+                                    long ididiid = System.currentTimeMillis();
                                     BitmapUtil.saveBitmapToSD(BitmapFactory.decodeFile(sp), MyApplication.SDPATH3, ididiid + ".png");
                                     PaAccessDetectFaceResult detectResult = paAccessControl.
-                                            detectFaceByFile(MyApplication.SDPATH3+File.separator+ididiid+".png");
+                                            detectFaceByFile(MyApplication.SDPATH3 + File.separator + ididiid + ".png");
 
-                                    if (detectResult!=null && detectResult.message== PaAccessControlMessage.RESULT_OK) {
-                                       // Log.d("TSXXChuLi", "detectResult.message:" + detectResult.message);
+                                    if (detectResult != null && detectResult.message == PaAccessControlMessage.RESULT_OK) {
+                                        // Log.d("TSXXChuLi", "detectResult.message:" + detectResult.message);
                                         //先查询有没有
                                         try {
 //                                            PaAccessFaceInfo face = paAccessControl.queryFaceById(ididiid+"");
@@ -697,22 +707,22 @@ public class SheZhiActivity2 extends Activity {
 //                                                if (subject!=null)
 //                                                    subjectBox.remove(subject);
 //                                            }
-                                            paAccessControl.addFace(ididiid+"", detectResult.feature, MyApplication.GROUP_IMAGE);
+                                            paAccessControl.addFace(ididiid + "", detectResult.feature, MyApplication.GROUP_IMAGE);
 
                                             Subject subject = new Subject();
-                                            subject.setTeZhengMa(ididiid+""); //人员id==图片id
-                                            subject.setName(ididiid+"");
+                                            subject.setTeZhengMa(ididiid + ""); //人员id==图片id
+                                            subject.setName(ididiid + "");
                                             subject.setPeopleType("员工");
                                             subject.setId(ididiid);
                                             subjectBox.put(subject);
                                             Log.d("MyReceiver", "单个员工入库成功");
 
 
-                                        } catch(Exception e){
+                                        } catch (Exception e) {
                                             e.printStackTrace();
 
                                         }
-                                    }else {
+                                    } else {
                                         shibai++;
                                         stringBuilder2.append("入库添加图片失败:")
                                                 .append("姓名:")
@@ -721,10 +731,10 @@ public class SheZhiActivity2 extends Activity {
                                                 .append("\n");
                                     }
 
-                                    ToastUtils.getInstances().setDate("入库中"+((float)i/(float) size)*100f+"%",0,"失败了:"+shibai);
+                                    ToastUtils.getInstances().setDate("入库中" + ((float) i / (float) size) * 100f + "%", 0, "失败了:" + shibai);
 
                                 } catch (Exception e) {
-                                   // e.printStackTrace();
+                                    // e.printStackTrace();
                                     stringBuilder2.append("入库添加图片失败:")
                                             .append("姓名:")
                                             .append(strings.get(i)).append("时间:")
@@ -733,28 +743,28 @@ public class SheZhiActivity2 extends Activity {
                                 }
 
                             }
-                            String ss=stringBuilder2.toString();
+                            String ss = stringBuilder2.toString();
 
-                            if (ss.length()>0){
+                            if (ss.length() > 0) {
 
                                 try {
-                                    FileUtil.savaFileToSD("失败记录"+DateUtils.timesOne(System.currentTimeMillis()+"")+".txt",ss);
-                                    ToastUtils.getInstances().setDate("入库完成",0,"有失败的记录,已保存到本地根目录");
+                                    FileUtil.savaFileToSD("失败记录" + DateUtils.timesOne(System.currentTimeMillis() + "") + ".txt", ss);
+                                    ToastUtils.getInstances().setDate("入库完成", 0, "有失败的记录,已保存到本地根目录");
                                     stringBuilder2.delete(0, stringBuilder2.length());
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
-                            }else {
-                                if (shibai!=-1)
-                                ToastUtils.getInstances().setDate("入库完成",0,"全部入库成功，没有失败记录");
+                            } else {
+                                if (shibai != -1)
+                                    ToastUtils.getInstances().setDate("入库完成", 0, "全部入库成功，没有失败记录");
                             }
 
                         }
 
                     }).start();
 
-                }else {
+                } else {
                     EventBus.getDefault().post("请先拔插一下U盘");
                 }
 
@@ -766,7 +776,7 @@ public class SheZhiActivity2 extends Activity {
                             @Override
                             public void run() {
                                 if (!SheZhiActivity2.this.isFinishing())
-                                rl17.setEnabled(true);
+                                    rl17.setEnabled(true);
                             }
                         });
 
@@ -774,14 +784,14 @@ public class SheZhiActivity2 extends Activity {
                 }).start();
                 break;
             case R.id.daochu:
-                isT=false;
+                isT = false;
                 kaiPing();
                 finish();
                 break;
             case R.id.rl28:
                 //选择城市
                 //if (options1Items.size() > 0 ) {
-                    showPickerView();
+                showPickerView();
 //                } else {
 //                    Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "城市数据准备中...请稍后", TastyToast.LENGTH_LONG, TastyToast.INFO);
 //                    tastyToast.setGravity(Gravity.CENTER, 0, 0);
@@ -791,10 +801,10 @@ public class SheZhiActivity2 extends Activity {
         }
     }
 
-    private void kaiPing(){
+    private void kaiPing() {
         Intent intent = new Intent();
         intent.setAction("LYD_SHOW_NAVIGATION_BAR");
-        intent.putExtra("type",1);
+        intent.putExtra("type", 1);
         this.sendBroadcast(intent);
         sendBroadcast(new Intent("com.android.internal.policy.impl.showNavigationBar"));
         sendBroadcast(new Intent("com.android.systemui.statusbar.phone.statusopen"));
@@ -812,14 +822,15 @@ public class SheZhiActivity2 extends Activity {
 
         super.onDestroy();
         EventBus.getDefault().unregister(this);//解除订阅
-        if (isT){
+        if (isT) {
             RestartAPPTool.restartAPP(SheZhiActivity2.this);
         }
-      //  startActivity(new Intent(SheZhiActivity2.this, MainActivity2.class));
+        //  startActivity(new Intent(SheZhiActivity2.this, MainActivity2.class));
 
 
     }
-//
+
+    //
 //    companyId  公司ID
 //    name  机器名称
 //    machineType 机器类型：1：人证合一面板机  2：纯刷卡
@@ -827,16 +838,16 @@ public class SheZhiActivity2 extends Activity {
 //    machineUrl  设备ip地址
 //    machineAddress  设备位置
     //绑定
-    private void link_uplodexiazai(String name,String leixing,String weizhi){
+    private void link_uplodexiazai(String name, String leixing, String weizhi) {
         //final MediaType JSON=MediaType.parse("application/json; charset=utf-8");
-        OkHttpClient okHttpClient= new OkHttpClient();
+        OkHttpClient okHttpClient = new OkHttpClient();
         //RequestBody requestBody = RequestBody.create(JSON, json);
         RequestBody body = new FormBody.Builder()
-                .add("companyId","DG001")
+                .add("companyId", "DG001")
                 .add("name", name)
-                .add("machineType",leixing)
+                .add("machineType", leixing)
                 .add("machineCode", FileUtil.getSerialNumber(this) == null ? FileUtil.getIMSI() : FileUtil.getSerialNumber(this))
-                .add("machineUrl", "http://"+Objects.requireNonNull(FileUtil.getIPAddress(getApplicationContext()))+":8090/app")
+                .add("machineUrl", "http://" + Objects.requireNonNull(FileUtil.getIPAddress(getApplicationContext())) + ":8090/app")
                 .add("machineAddress", weizhi)
                 .build();
         Request.Builder requestBuilder = new Request.Builder()
@@ -845,7 +856,7 @@ public class SheZhiActivity2 extends Activity {
                 //.post(requestBody)
                 //.get()
                 .post(body)
-                .url(baoCunBean.getHoutaiDiZhi()+"/front/wisdom/app/addDevice");
+                .url(baoCunBean.getHoutaiDiZhi() + "/front/wisdom/app/addDevice");
 
         // step 3：创建 Call 对象
         Call call = okHttpClient.newCall(requestBuilder.build());
@@ -853,12 +864,12 @@ public class SheZhiActivity2 extends Activity {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.d("AllConnects", "请求失败"+e.getMessage());
+                Log.d("AllConnects", "请求失败" + e.getMessage());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast tastyToast= TastyToast.makeText(SheZhiActivity2.this,"请求失败，请检查地址和网络",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-                        tastyToast.setGravity(Gravity.CENTER,0,0);
+                        Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "请求失败，请检查地址和网络", TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                        tastyToast.setGravity(Gravity.CENTER, 0, 0);
                         tastyToast.show();
                     }
                 });
@@ -866,36 +877,36 @@ public class SheZhiActivity2 extends Activity {
 
             @Override
             public void onResponse(Call call, Response response) {
-                Log.d("AllConnects", "请求成功"+call.request().toString());
+                Log.d("AllConnects", "请求成功" + call.request().toString());
                 //获得返回体
-                try{
+                try {
                     ResponseBody body = response.body();
-                    String ss=body.string().trim();
-                    Log.d("AllConnects", "注册码"+ss);
-					final JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
-					Gson gson=new Gson();
-					runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast tastyToast= TastyToast.makeText(SheZhiActivity2.this,jsonObject.get("msg").getAsString(),TastyToast.LENGTH_LONG,TastyToast.INFO);
-                            tastyToast.setGravity(Gravity.CENTER,0,0);
-                            tastyToast.show();
-                        }
-                    });
-					//final HuiYiInFoBean renShu=gson.fromJson(jsonObject,HuiYiInFoBean.class);
-
-
-                }catch (Exception e){
+                    String ss = body.string().trim();
+                    Log.d("AllConnects", "注册码" + ss);
+                    final JsonObject jsonObject = GsonUtil.parse(ss).getAsJsonObject();
+                    Gson gson = new Gson();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast tastyToast= TastyToast.makeText(SheZhiActivity2.this,"返回数据异常",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-                            tastyToast.setGravity(Gravity.CENTER,0,0);
+                            Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, jsonObject.get("msg").getAsString(), TastyToast.LENGTH_LONG, TastyToast.INFO);
+                            tastyToast.setGravity(Gravity.CENTER, 0, 0);
+                            tastyToast.show();
+                        }
+                    });
+                    //final HuiYiInFoBean renShu=gson.fromJson(jsonObject,HuiYiInFoBean.class);
+
+
+                } catch (Exception e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "返回数据异常", TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                            tastyToast.setGravity(Gravity.CENTER, 0, 0);
                             tastyToast.show();
 
                         }
                     });
-                    Log.d("WebsocketPushMsg", e.getMessage()+"ttttt");
+                    Log.d("WebsocketPushMsg", e.getMessage() + "ttttt");
                 }
 
             }
@@ -904,12 +915,12 @@ public class SheZhiActivity2 extends Activity {
     //
 
     //绑定ic
-    private void link_uplodeic(String nameic){
+    private void link_uplodeic(String nameic) {
         //final MediaType JSON=MediaType.parse("application/json; charset=utf-8");
-        OkHttpClient okHttpClient= new OkHttpClient();
+        OkHttpClient okHttpClient = new OkHttpClient();
         //RequestBody requestBody = RequestBody.create(JSON, json);
         RequestBody body = new FormBody.Builder()
-                .add("companyId","DG001")
+                .add("companyId", "DG001")
                 .add("ic_card", nameic)
                 .build();
         Request.Builder requestBuilder = new Request.Builder()
@@ -926,12 +937,12 @@ public class SheZhiActivity2 extends Activity {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.d("AllConnects", "请求失败"+e.getMessage());
+                Log.d("AllConnects", "请求失败" + e.getMessage());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast tastyToast= TastyToast.makeText(SheZhiActivity2.this,"请求失败，请检查地址和网络",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-                        tastyToast.setGravity(Gravity.CENTER,0,0);
+                        Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "请求失败，请检查地址和网络", TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                        tastyToast.setGravity(Gravity.CENTER, 0, 0);
                         tastyToast.show();
                     }
                 });
@@ -939,36 +950,36 @@ public class SheZhiActivity2 extends Activity {
 
             @Override
             public void onResponse(Call call, Response response) {
-                Log.d("AllConnects", "请求成功"+call.request().toString());
+                Log.d("AllConnects", "请求成功" + call.request().toString());
                 //获得返回体
-                try{
+                try {
                     ResponseBody body = response.body();
-                    String ss=body.string().trim();
-                    Log.d("AllConnects", "注册码"+ss);
-                    final JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
-                    Gson gson=new Gson();
+                    String ss = body.string().trim();
+                    Log.d("AllConnects", "注册码" + ss);
+                    final JsonObject jsonObject = GsonUtil.parse(ss).getAsJsonObject();
+                    Gson gson = new Gson();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast tastyToast= TastyToast.makeText(SheZhiActivity2.this,jsonObject.get("msg").getAsString(),TastyToast.LENGTH_LONG,TastyToast.INFO);
-                            tastyToast.setGravity(Gravity.CENTER,0,0);
+                            Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, jsonObject.get("msg").getAsString(), TastyToast.LENGTH_LONG, TastyToast.INFO);
+                            tastyToast.setGravity(Gravity.CENTER, 0, 0);
                             tastyToast.show();
                         }
                     });
                     //final HuiYiInFoBean renShu=gson.fromJson(jsonObject,HuiYiInFoBean.class);
 
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast tastyToast= TastyToast.makeText(SheZhiActivity2.this,"返回数据异常",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-                            tastyToast.setGravity(Gravity.CENTER,0,0);
+                            Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "返回数据异常", TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                            tastyToast.setGravity(Gravity.CENTER, 0, 0);
                             tastyToast.show();
 
                         }
                     });
-                    Log.d("WebsocketPushMsg", e.getMessage()+"ttttt");
+                    Log.d("WebsocketPushMsg", e.getMessage() + "ttttt");
                 }
 
             }
@@ -978,26 +989,30 @@ public class SheZhiActivity2 extends Activity {
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
     public void onDataSynEvent(String event) {
-        if (zLoadingDialog!=null){
-            if (event.equals("daochujilu")){
+        if (zLoadingDialog != null) {
+            if (event.equals("daochujilu")) {
                 Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "导出成功", TastyToast.LENGTH_LONG, TastyToast.INFO);
                 tastyToast.setGravity(Gravity.CENTER, 0, 0);
                 tastyToast.show();
                 zLoadingDialog.dismiss();
-                zLoadingDialog=null;
+                zLoadingDialog = null;
                 return;
             }
-            if (event.equals("daochujiluyc")){
+            if (event.equals("daochujiluyc")) {
                 Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, "导出失败", TastyToast.LENGTH_LONG, TastyToast.INFO);
                 tastyToast.setGravity(Gravity.CENTER, 0, 0);
                 tastyToast.show();
                 zLoadingDialog.dismiss();
-                zLoadingDialog=null;
+                zLoadingDialog = null;
                 return;
             }
         }
 
-
+        if (event.equals("激活成功")) {
+            if (bangDingDialog != null) {
+                bangDingDialog.setContents("绑定成功");
+            }
+        }
 
         Toast tastyToast = TastyToast.makeText(SheZhiActivity2.this, event, TastyToast.LENGTH_LONG, TastyToast.INFO);
         tastyToast.setGravity(Gravity.CENTER, 0, 0);
@@ -1121,8 +1136,8 @@ public class SheZhiActivity2 extends Activity {
                 .build();
 
         pvOptions.setPicker(options1Items);//一级选择器
-    //    pvOptions.setPicker(options1Items, options2Items);//二级选择器
-     //   pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+        //    pvOptions.setPicker(options1Items, options2Items);//二级选择器
+        //   pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
         pvOptions.show();
     }
 
@@ -1153,7 +1168,6 @@ public class SheZhiActivity2 extends Activity {
 
         }
     }
-
 
 
 }

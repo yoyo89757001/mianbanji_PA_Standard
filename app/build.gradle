@@ -13,8 +13,8 @@ android {
         applicationId "com.ruitongai.mechanical"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 14
-        versionName "1.0.14"
+        versionCode 18
+        versionName "1.0.18"
         ndk {
             //选择要添加的对应cpu类型的.so库。
             abiFilters 'armeabi-v7a'
@@ -100,7 +100,7 @@ dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'//6。0权限
     implementation 'com.yanzhenjie.andserver:api:2.0.5'//小服务器
     annotationProcessor 'com.yanzhenjie.andserver:processor:2.0.5'//小服务器
-    //implementation 'me.jessyan:autosize:1.1.2'//屏幕适配
+    implementation 'me.jessyan:autosize:1.1.2'//屏幕适配
     implementation 'com.alibaba:fastjson:1.1.71.android'
     implementation 'com.google.zxing:core:3.4.0'
   //  implementation 'com.github.licheedev.Android-SerialPort-API:serialport:1.0.1'

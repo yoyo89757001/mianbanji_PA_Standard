@@ -2,19 +2,19 @@ package megvii.testfacepass.pa.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
 import megvii.testfacepass.pa.R;
 
 
@@ -30,15 +30,27 @@ public class MiMaDialog3 extends Dialog implements View.OnClickListener {
     private LinearLayout queding;
     private StringBuilder builder=new StringBuilder();
     private int mima;
-    private MediaPlayer mMediaPlayer;
+    private HashMap<Integer, Integer> musicId= new HashMap<>();
     private List<TextView> textViewList=new ArrayList<>();
+    private SoundPool soundPool;
+
 
     public MiMaDialog3(Context context, int mima) {
         super(context, R.style.dialog_mima);
         this.context=context;
         this.mima=mima;
-        Log.d("MiMaDialog", "mima:" + mima);
 
+        AudioAttributes abs = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build() ;
+        soundPool =  new SoundPool.Builder()
+                .setMaxStreams(10)   //设置允许同时播放的流的最大值
+                .setAudioAttributes(abs)   //完全可以设置为null
+                .build() ;
+
+        Log.d("MiMaDialog", "mima:" + mima);
+        musicId.put(1, soundPool.load(context, R.raw.didi, 1));
         setCustomDialog();
     }
 
@@ -92,15 +104,7 @@ public class MiMaDialog3 extends Dialog implements View.OnClickListener {
 
     private void bofang(){
 
-        mMediaPlayer=MediaPlayer.create(context, R.raw.didi);
-//        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            @Override
-//            public void onCompletion(MediaPlayer mp) {
-//              //  mMediaPlayer.release();
-//              //  mMediaPlayer=null;
-//            }
-//        });
-        mMediaPlayer.start();
+        soundPool.play(musicId.get(1),1,1, 0, 0, 1);
 
     }
 

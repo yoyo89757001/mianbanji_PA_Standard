@@ -176,7 +176,7 @@ public class MyApplication extends Application implements Application.ActivityLi
       BaoCunBean  baoCunBean = mBoxStore.boxFor(BaoCunBean.class).get(123456L);
         if (baoCunBean == null) {
             baoCunBean = new BaoCunBean();
-            baoCunBean.setHoutaiDiZhi("http://");
+            baoCunBean.setHoutaiDiZhi("http://hy.inteyeligence.com/front");
             baoCunBean.setId(123456L);
             baoCunBean.setShibieFaceSize(50);
             baoCunBean.setShibieFaZhi(0.52f);

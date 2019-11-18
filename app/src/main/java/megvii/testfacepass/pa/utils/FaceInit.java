@@ -103,6 +103,7 @@ public class FaceInit {
                         paAccessControl.initPaAccessControl(MyApplication.myApplication, new OnPaAccessControlInitListener() {
                             @Override
                             public void onSuccess() {
+                                EventBus.getDefault().post("激活成功");
                                 link_uplodeBD(id,url2);
                             }
 

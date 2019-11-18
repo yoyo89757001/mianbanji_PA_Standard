@@ -142,8 +142,9 @@ public class MyService {
                          @RequestParam(name = "name") String name,
                          @RequestParam(name = "departmentName")String bumen,
                          @RequestParam(name = "pepopleType")String pepopleType,
+                         @RequestParam(name = "number",required = false)String number,
                          @RequestParam(name = "image") MultipartFile file
-                ) throws IOException {
+                ) throws IOException {//required = false
         if (paAccessControl==null)
             return requsBean(-1,"识别算法未初始化");
 

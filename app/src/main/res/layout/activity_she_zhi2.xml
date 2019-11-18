@@ -405,6 +405,8 @@
                     android:layout_height="1px"/>
             </RelativeLayout>
 
+
+
             <RelativeLayout
                 android:id="@+id/rl6"
                 android:background="@drawable/jiaohu31"
@@ -572,9 +574,62 @@
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl56"
+                android:background="@drawable/jiaohu31"
+                android:layout_width="match_parent"
+                android:layout_height="90px">
+
+                <ImageView
+                    android:src="@drawable/huoti_bg"
+                    android:layout_width="60px"
+                    android:id="@+id/im56"
+                    android:tint="#526ae2"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_height="60px" />
+
+                <TextView
+                    android:textSize="30px"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/im56"
+                    android:layout_marginLeft="16px"
+                    android:textColor="#6c020202"
+                    android:text="开启门禁密码"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="60px"
+                    android:textSize="20px"
+                    android:id="@+id/switchs56"
+                    style="@style/TextAppearance.AppCompat.Widget.Switch"
+                    android:layout_marginRight="16px"
+                    android:layout_toLeftOf="@+id/ff356"
+                    android:layout_centerVertical="true"
+                    android:switchMinWidth="70px"
+                    android:track="@drawable/zhongkong_tuhuang"/>
+
+                <ImageView
+                    android:src="@drawable/xiangyou"
+                    android:padding="10px"
+                    android:id="@+id/ff356"
+                    android:tint="#526ae2"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16px"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="60px"
+                    android:layout_height="60px" />
+
+                <View
+                    android:background="@color/tabtextcolo"
+                    android:layout_width="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="1px"/>
+            </RelativeLayout>
 
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/rl13"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"

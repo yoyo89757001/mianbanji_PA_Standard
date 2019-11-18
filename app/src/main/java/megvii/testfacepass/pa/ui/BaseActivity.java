@@ -147,57 +147,67 @@ public class BaseActivity extends AppCompatActivity implements EasyPermissions.P
         new Thread(new Runnable() {
             @Override
             public void run() {
-                PaLicenseManager.getInstance()
-                        .setAppId(APP_ID)
-                        .setAppKey(APP_KEY)
-                        .setURL(AUTH_PRODUCT_URL)
-                       // .setAppId( baoCunBean.getAppid())
-                       // .setAppKey(baoCunBean.getAppkey())
-                       // .setURL(baoCunBean.getAppurl())
-                        .setSDKType(SDKType.ONEVN)
-                        .initAuthority(BaseActivity.this, new PaLicenseManager.InitListener() {
-                            @Override
-                            public void onInitSuccess(String s) {
-                                PaAccessControl paAccessControl = PaAccessControl.getInstance();
-                                paAccessControl.setLogEnable(false);
-                                paAccessControl.initPaAccessControl(MyApplication.myApplication, new OnPaAccessControlInitListener() {
-                                    @Override
-                                    public void onSuccess() {
-                                        showDialog(false);
-                                        ToastUtils.show(BaseActivity.this, "初始化成功");
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                startActivity(new Intent(BaseActivity.this,MianBanJiActivity3.class));
-                                                finish();
-                                            }
-                                        });
-                                    }
-                                    @Override
-                                    public void onError(int i) {
-                                        showDialog(false);
-                                        ToastUtils.show2(BaseActivity.this, "初始化失败1,请检查网络"+i);
-                                       runOnUiThread(new Runnable() {
-                                           @Override
-                                           public void run() {
-                                               startActivity(new Intent(BaseActivity.this,MianBanJiActivity3.class).putExtra("dddd",-1));
-                                               finish();
-                                           }
-                                       });
+               // if (baoCunBean.getAppid()!=null && baoCunBean.getAppkey()!=null && baoCunBean.getAppurl()!=null){
+                    PaLicenseManager.getInstance()
+                             .setAppId(APP_ID)
+                             .setAppKey(APP_KEY)
+                             .setURL(AUTH_PRODUCT_URL)
+                          //  .setAppId( baoCunBean.getAppid())
+                          //  .setAppKey(baoCunBean.getAppkey())
+                           // .setURL(baoCunBean.getAppurl())
+                            .setSDKType(SDKType.ONEVN)
+                            .initAuthority(BaseActivity.this, new PaLicenseManager.InitListener() {
+                                @Override
+                                public void onInitSuccess(String s) {
+                                    PaAccessControl paAccessControl = PaAccessControl.getInstance();
+                                    paAccessControl.setLogEnable(false);
+                                    paAccessControl.initPaAccessControl(MyApplication.myApplication, new OnPaAccessControlInitListener() {
+                                        @Override
+                                        public void onSuccess() {
+                                            showDialog(false);
+                                            ToastUtils.show(BaseActivity.this, "初始化成功");
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    startActivity(new Intent(BaseActivity.this,MianBanJiActivity3.class));
+                                                    finish();
+                                                }
+                                            });
+                                        }
+                                        @Override
+                                        public void onError(int i) {
+                                            showDialog(false);
+                                            ToastUtils.show2(BaseActivity.this, "初始化失败1,请检查网络"+i);
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    startActivity(new Intent(BaseActivity.this,MianBanJiActivity3.class).putExtra("dddd",-1));
+                                                    finish();
+                                                }
+                                            });
 
-                                    }
-                                });
+                                        }
+                                    });
 
-                            }
+                                }
 
-                            @Override
-                            public void onInitFailed(int i) {
-                                showDialog(false);
-                                ToastUtils.show2(BaseActivity.this, "初始化失败2,请检查网络"+i);
-                                startActivity(new Intent(BaseActivity.this,MianBanJiActivity3.class).putExtra("dddd",-1));
-                                finish();
-                            }
-                        });
+                                @Override
+                                public void onInitFailed(int i) {
+                                    showDialog(false);
+                                    ToastUtils.show2(BaseActivity.this, "初始化失败2,请检查网络"+i);
+                                    startActivity(new Intent(BaseActivity.this,MianBanJiActivity3.class).putExtra("dddd",-1));
+                                    finish();
+                                }
+                            });
+//                }else {
+//                    showDialog(false);
+//                    ToastUtils.show2(BaseActivity.this, "初始化失败,缺少激活数据");
+//                    startActivity(new Intent(BaseActivity.this,MianBanJiActivity3.class).putExtra("dddd",-1));
+//                    finish();
+//                }
+
+
+
             }
         }).start();
     }
