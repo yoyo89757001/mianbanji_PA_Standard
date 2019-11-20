@@ -13,7 +13,16 @@ public class DaKaBean {
     private String bumen;
     private String renyuanleixing;
     private String time;
+    private long time2;
     private String dianhua;
+
+    public long getTime2() {
+        return time2;
+    }
+
+    public void setTime2(long time2) {
+        this.time2 = time2;
+    }
 
     public String getId2() {
         return id2;

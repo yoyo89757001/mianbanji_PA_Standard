@@ -1,7 +1,10 @@
 package megvii.testfacepass.pa.utils;
 
-import android.content.Context;
-import android.widget.Toast;
+
+
+import com.yanzhenjie.andserver.framework.body.FileBody;
+import com.yanzhenjie.andserver.framework.body.StringBody;
+import com.yanzhenjie.andserver.http.HttpResponse;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -12,7 +15,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.objectbox.Box;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.format.Colour;
@@ -86,7 +88,7 @@ public class ExcelUtil {
         try {
             File file = new File(fileName);
             if (!file.exists()) {
-                file.createNewFile();
+              boolean ss=  file.createNewFile();
             }
             workbook = Workbook.createWorkbook(file);
             //设置表格的名字
@@ -114,7 +116,75 @@ public class ExcelUtil {
 
 
     @SuppressWarnings("unchecked")
-    public static <T> void writeObjListToExcel(List<T> objList, String fileName, Context c, Box<DaKaBean> daKaBeanBox) {
+    public static <T> void writeObjListToExcel(List<T> objList, String fileName, HttpResponse response,File file,String fileName2) {
+
+        if (objList != null && objList.size() > 0) {
+            WritableWorkbook writebook = null;
+            InputStream in = null;
+            try {
+                WorkbookSettings setEncode = new WorkbookSettings();
+                setEncode.setEncoding(UTF8_ENCODING);
+                in = new FileInputStream(new File(fileName));
+                Workbook workbook = Workbook.getWorkbook(in);
+                writebook = Workbook.createWorkbook(new File(fileName), workbook);
+                WritableSheet sheet = writebook.getSheet(0);
+                for (int j = 0; j < objList.size(); j++) {
+                    DaKaBean projectBean = (DaKaBean) objList.get(j);
+                    List<String> list = new ArrayList<>();
+                    list.add(projectBean.getId2());
+                    list.add(projectBean.getName());
+                    list.add(projectBean.getBumen()+"");
+                    list.add(DateUtils.time(projectBean.getTime2()+""));
+
+                    for (int i = 0; i < list.size(); i++) {
+                        sheet.addCell(new Label(i, j + 1, list.get(i), arial12format));
+                        if (list.get(i).length() <= 4) {
+                            //设置列宽
+                            sheet.setColumnView(i, list.get(i).length() + 8);
+                        } else {
+                            //设置列宽
+                            sheet.setColumnView(i, list.get(i).length() + 5);
+                        }
+                    }
+                    //设置行高
+                    sheet.setRowView(j + 1, 350);
+                }
+
+                writebook.write();
+
+                FileBody body = new FileBody(file);
+                response.addHeader("Content-Disposition", "attachment;filename="+fileName2);
+                response.setBody(body);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                StringBody body=new StringBody(e.getMessage()+"");
+                response.setBody(body);
+
+            } finally {
+                if (writebook != null) {
+                    try {
+                        writebook.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                      //  EventBus.getDefault().post("daochujiluyc");
+                    }
+                }
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                       // EventBus.getDefault().post("daochujiluyc");
+                    }
+                }
+            }
+
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> void writeObjListToExcel(List<T> objList, String fileName) {
 
         if (objList != null && objList.size() > 0) {
             WritableWorkbook writebook = null;
@@ -134,7 +204,7 @@ public class ExcelUtil {
                     list.add(projectBean.getName());
                     list.add(projectBean.getBumen()+"");
                     list.add(projectBean.getRenyuanleixing()+"");
-                    list.add(projectBean.getTime());
+                    list.add(DateUtils.time(projectBean.getTime2()+""));
 
                     for (int i = 0; i < list.size(); i++) {
                         sheet.addCell(new Label(i, j + 1, list.get(i), arial12format));
@@ -151,7 +221,7 @@ public class ExcelUtil {
                 }
 
                 writebook.write();
-                daKaBeanBox.removeAll();
+                //  daKaBeanBox.removeAll();
                 EventBus.getDefault().post("daochujilu");
 
             } catch (Exception e) {
@@ -166,7 +236,6 @@ public class ExcelUtil {
                         e.printStackTrace();
                         EventBus.getDefault().post("daochujiluyc");
                     }
-
                 }
                 if (in != null) {
                     try {

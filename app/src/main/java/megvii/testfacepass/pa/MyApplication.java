@@ -36,6 +36,8 @@ import megvii.testfacepass.pa.dialogall.CommonData;
 import megvii.testfacepass.pa.dialogall.CommonDialogService;
 import megvii.testfacepass.pa.dialogall.ToastUtils;
 
+import static com.tencent.bugly.beta.tinker.TinkerManager.getApplication;
+
 
 /**
  * Created by Administrator on 2018/8/3.
@@ -205,7 +207,6 @@ public class MyApplication extends Application implements Application.ActivityLi
                         .readTimeout(15_000) // set read timeout.
                 ))
                 .commit();
-
 
     }
 

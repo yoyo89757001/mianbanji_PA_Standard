@@ -2,8 +2,6 @@ package megvii.testfacepass.pa.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +15,10 @@ import com.bumptech.glide.request.RequestOptions;
 import java.io.File;
 import java.util.List;
 
-
 import io.objectbox.query.LazyList;
 import megvii.testfacepass.pa.MyApplication;
 import megvii.testfacepass.pa.R;
 import megvii.testfacepass.pa.beans.Subject;
-
 import megvii.testfacepass.pa.view.GlideRoundTransform;
 
 
@@ -30,9 +26,9 @@ import megvii.testfacepass.pa.view.GlideRoundTransform;
  * Created by xingchaolei on 2017/12/5.
  */
 
-public class UserListAdapter extends BaseAdapter {
+public class UserListAdapter2 extends BaseAdapter {
 
-    private LazyList<Subject> mGroupNames;
+    private List<Subject> mGroupNames;
     private LayoutInflater mLayoutInflater;
     private ItemDeleteButtonClickListener mItemDeleteButtonClickListener;
 
@@ -40,7 +36,7 @@ public class UserListAdapter extends BaseAdapter {
     private RequestOptions myOptions2 =null;
 
 
-    public UserListAdapter(LazyList<Subject> data, Context context) {
+    public UserListAdapter2(List<Subject> data, Context context) {
         mGroupNames=data;
         this.context=context;
         myOptions2 = new RequestOptions()
@@ -51,6 +47,7 @@ public class UserListAdapter extends BaseAdapter {
     }
 
     public List<Subject> getData() {
+
         return mGroupNames;
     }
 
@@ -64,24 +61,12 @@ public class UserListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (mGroupNames==null || mGroupNames.size()==0 || null==mGroupNames.get(0)){
-            Log.d("UserListAdapter", "mGroupNames.size():000");
-            return 0;
-        }else {
-            Log.d("UserListAdapter", "mGroupNames.size():" + mGroupNames.size());
-            return mGroupNames.size();
-        }
-
+        return mGroupNames == null ? 0 : mGroupNames.size();
     }
 
     @Override
     public Object getItem(int position) {
-        if (mGroupNames==null || mGroupNames.size()==0){
-            return null;
-        }else {
-            return  mGroupNames.get(position);
-        }
-
+        return mGroupNames == null ? null : mGroupNames.get(position);
     }
 
     @Override
@@ -114,9 +99,8 @@ public class UserListAdapter extends BaseAdapter {
             }
         });
 
-
-
         holder.groupNameTv.setText(mGroupNames.get(position).getName());
+        Bitmap bitmap = null;
         try {
             if (mGroupNames.get(position).getTeZhengMa()!=null){
                 Glide.with(context)

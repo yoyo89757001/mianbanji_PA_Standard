@@ -11,12 +11,12 @@ package megvii.testfacepass.pa.utils;
 
 public class SettingVar {
     public static boolean cameraFacingFront = true;
-    public static int faceRotation = 90;
+    public static int faceRotation = 270;
     public static int faceRotation2 = 270;
     public static boolean isSettingAvailable = true;
-    public static int cameraPreviewRotation = 0;
+    public static int cameraPreviewRotation = 90;
     public static int cameraPreviewRotation2 = 270;
-    public static int msrBitmapRotation = 0;
+    public static int msrBitmapRotation = 270;
     public static boolean isCross = false;
     public static String SharedPrefrence = "user";
     public static int mHeight;

@@ -41,7 +41,7 @@
 
 
     <View
-        android:background="@color/tabtextcolo"
+        android:background="#f5f5f5"
         android:layout_width="match_parent"
         android:layout_marginTop="30px"
         android:layout_height="1px"/>
@@ -50,19 +50,19 @@
         android:id="@+id/rl1"
         android:background="@drawable/jiaohu31"
         android:layout_width="match_parent"
-        android:layout_height="90px">
+        android:layout_height="60dp">
 
         <ImageView
             android:src="@drawable/dizhibgbg"
-            android:layout_width="60px"
+            android:layout_width="25dp"
             android:id="@+id/im1"
             android:tint="#526ae2"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20px"
-            android:layout_height="60px" />
+            android:layout_height="25dp" />
 
             <TextView
-                android:textSize="30px"
+                android:textSize="20sp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/im1"
                 android:layout_marginLeft="16px"
@@ -83,7 +83,7 @@
 
 
         <View
-            android:background="@color/tabtextcolo"
+            android:background="#f5f5f5"
             android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_height="1px"/>
@@ -95,7 +95,7 @@
                 android:visibility="gone"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/dizhibgbg"
@@ -128,7 +128,7 @@
 
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -139,19 +139,19 @@
                 android:id="@+id/rl12"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/dizhibgbg"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im12"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im12"
                     android:layout_marginLeft="16px"
@@ -172,7 +172,7 @@
 
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -184,19 +184,19 @@
                 android:id="@+id/rl2"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/jihuobangding"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im2"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im2"
                     android:layout_marginLeft="16px"
@@ -217,17 +217,25 @@
 
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:visibility="gone"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
             </RelativeLayout>
+
+            <View
+                android:background="#f5f5f5"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
+
+
             <RelativeLayout
                 android:visibility="gone"
                 android:id="@+id/rl3"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/yuying_bgbg"
@@ -259,7 +267,7 @@
                     android:layout_height="60px" />
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -270,7 +278,7 @@
                 android:id="@+id/rl33"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/yuying_bgbg"
@@ -302,7 +310,7 @@
                     android:layout_height="60px" />
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -312,19 +320,19 @@
                 android:id="@+id/rl4"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/juli_bg"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im4"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im4"
                     android:layout_marginLeft="16px"
@@ -344,7 +352,7 @@
                     android:layout_height="60px" />
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -354,19 +362,19 @@
                 android:id="@+id/rl5"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/huoti_bg"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im5"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im5"
                     android:layout_marginLeft="16px"
@@ -399,7 +407,7 @@
                     android:layout_height="60px" />
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -411,19 +419,19 @@
                 android:id="@+id/rl6"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/fangxiang_bg"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im6"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im6"
                     android:layout_marginLeft="16px"
@@ -443,7 +451,7 @@
                     android:layout_height="60px" />
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -452,19 +460,19 @@
                 android:id="@+id/rl7"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/ruku_bgbg"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im7"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im7"
                     android:layout_marginLeft="16px"
@@ -484,71 +492,38 @@
                     android:layout_height="60px" />
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:visibility="gone"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
             </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/rl9"
-                android:background="@drawable/jiaohu31"
+
+            <View
+                android:background="#f5f5f5"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="16dp"/>
 
-                <ImageView
-                    android:src="@drawable/yulan_bgbg"
-                    android:layout_width="60px"
-                    android:id="@+id/im9"
-                    android:tint="#526ae2"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
 
-                <TextView
-                    android:textSize="30px"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/im9"
-                    android:layout_marginLeft="16px"
-                    android:text="预览摄像头"
-                    android:textColor="#6c020202"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:src="@drawable/xiangyou"
-                    android:padding="10px"
-                    android:tint="#526ae2"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16px"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="60px"
-                    android:layout_height="60px" />
-
-                <View
-                    android:background="@color/tabtextcolo"
-                    android:layout_width="match_parent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_height="1px"/>
-            </RelativeLayout>
 
 
             <RelativeLayout
                 android:id="@+id/rl8"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/jihuobangding"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im8"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im8"
                     android:layout_marginLeft="16px"
@@ -569,7 +544,7 @@
 
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -578,19 +553,19 @@
                 android:id="@+id/rl56"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/huoti_bg"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im56"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im56"
                     android:layout_marginLeft="16px"
@@ -623,7 +598,7 @@
                     android:layout_height="60px" />
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -633,19 +608,19 @@
                 android:id="@+id/rl13"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/jihuobangding"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im13"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im13"
                     android:layout_marginLeft="16px"
@@ -666,30 +641,31 @@
 
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
             </RelativeLayout>
 
+
+
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/rl14"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/juli_bg"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im14"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im14"
                     android:layout_marginLeft="16px"
@@ -709,36 +685,85 @@
                     android:layout_height="60px" />
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:visibility="gone"
+                    android:background="#f5f5f5"
+                    android:layout_width="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="1px"/>
+            </RelativeLayout>
+
+            <View
+                android:background="#f5f5f5"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
+
+
+            <RelativeLayout
+                android:id="@+id/rl9"
+                android:background="@drawable/jiaohu31"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <ImageView
+                    android:src="@drawable/yulan_bgbg"
+                    android:layout_width="25dp"
+                    android:id="@+id/im9"
+                    android:tint="#526ae2"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_height="25dp" />
+
+                <TextView
+                    android:textSize="20sp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/im9"
+                    android:layout_marginLeft="16px"
+                    android:text="预览摄像头"
+                    android:textColor="#6c020202"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:src="@drawable/xiangyou"
+                    android:padding="10px"
+                    android:tint="#526ae2"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16px"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="60px"
+                    android:layout_height="60px" />
+
+                <View
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
             </RelativeLayout>
 
 
-
             <RelativeLayout
                 android:id="@+id/rl15"
+                android:visibility="gone"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/dizhibgbg"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im15"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im15"
                     android:layout_marginLeft="16px"
                     android:textColor="#6c020202"
-                    android:text="修改公司名称"
+                    android:text="导出刷脸记录"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -754,7 +779,7 @@
 
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -764,19 +789,19 @@
                 android:id="@+id/rl16"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/huoti_bg"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im16"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im16"
                     android:layout_marginLeft="16px"
@@ -797,7 +822,7 @@
 
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -809,7 +834,7 @@
                 android:id="@+id/rl17"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/yulan_bgbg"
@@ -842,7 +867,7 @@
 
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -853,19 +878,19 @@
                 android:id="@+id/rl28"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/weizhichengshi"
-                    android:layout_width="60px"
+                    android:layout_width="25dp"
                     android:id="@+id/im28"
                     android:tint="#526ae2"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_height="60px" />
+                    android:layout_height="25dp" />
 
                 <TextView
-                    android:textSize="30px"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/im28"
                     android:layout_marginLeft="16px"
@@ -895,7 +920,7 @@
                     android:layout_height="60px" />
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#f5f5f5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
@@ -906,7 +931,7 @@
                 android:id="@+id/rl55"
                 android:background="@drawable/jiaohu31"
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:src="@drawable/huoti_bg"
@@ -951,12 +976,16 @@
                     android:layout_height="60px" />
 
                 <View
-                    android:background="@color/tabtextcolo"
+                    android:background="#F5F5F5"
                     android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_height="1px"/>
             </RelativeLayout>
 
+            <View
+                android:background="#F5F5F5"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
 
             <Button
                 android:text="退 出"
@@ -971,7 +1000,7 @@
 
             <View
                 android:layout_marginTop="20dp"
-                android:background="@color/tabtextcolo"
+                android:background="#f5f5f5"
                 android:layout_width="match_parent"
                 android:layout_height="1px"/>
 

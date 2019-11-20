@@ -69,15 +69,17 @@ public class DateUtils {
      * @return
      */
     public static String dataOne(String time) {
-        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss",
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.CHINA);
         Date date;
         String times = null;
         try {
             date = sdr.parse(time);
+            if (date==null)
+                return "0";
             long l = date.getTime();
-            String stf = String.valueOf(l);
-            times = stf.substring(0, 10);
+            times = String.valueOf(l);
+            //times = stf.substring(0, 10);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -147,7 +149,7 @@ public class DateUtils {
      * @return
      */
     public static String timeHore(String time) {
-        SimpleDateFormat sdr = new SimpleDateFormat("yyy_mm_dd_HH_mm_ss", Locale.CHINA);
+        SimpleDateFormat sdr = new SimpleDateFormat("yyy年MM月dd日 HH-mm-ss-SSS", Locale.CHINA);
         @SuppressWarnings("unused")
         long lcc = Long.valueOf(time);
         // int i = Integer.parseInt(time);
@@ -213,16 +215,15 @@ public class DateUtils {
     }
 
     public static String tim(String time) {
-        SimpleDateFormat sdr = new SimpleDateFormat("yyyyMMdd HH:mm", Locale.CHINA);
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM", Locale.CHINA);
         @SuppressWarnings("unused")
         long lcc = Long.valueOf(time);
-        int i = Integer.parseInt(time);
-        String times = sdr.format(new Date(i * 1000L));
-        return times;
+//        int i = Integer.parseInt(time);
+        return sdr.format(new Date(lcc));
     }
 
     public static String time(String time) {
-        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         @SuppressWarnings("unused")
         long lcc = Long.valueOf(time);
 //        int i = Integer.parseInt(time);

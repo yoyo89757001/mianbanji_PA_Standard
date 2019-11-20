@@ -75,6 +75,13 @@ public class DengUT {
         writeGpio(CAMERA_WHITE_PATH,255);
     }
 
+    public static void closeLOED(){
+        writeGpio(BRIGHTNESS_PATH,0);
+    }
+
+    public static void openLOED(){
+        writeGpio(BRIGHTNESS_PATH,255);
+    }
     public static void closeGreen(){
         writeGpio(GREEN_LAMP_PATH,0);
     }

@@ -66,6 +66,7 @@ import megvii.testfacepass.pa.dialogall.ToastUtils;
 import megvii.testfacepass.pa.utils.BitmapUtil;
 import megvii.testfacepass.pa.utils.DateUtils;
 import megvii.testfacepass.pa.utils.DiaLogUtil;
+import megvii.testfacepass.pa.utils.ExcelUtil;
 import megvii.testfacepass.pa.utils.FaceInit;
 import megvii.testfacepass.pa.utils.FileUtil;
 import megvii.testfacepass.pa.utils.GsonUtil;
@@ -567,37 +568,6 @@ public class SheZhiActivity2 extends Activity {
                 break;
             case R.id.rl14:
                 //公司名
-                final XiuGaigGSMDialog diZhiDialogs = new XiuGaigGSMDialog(SheZhiActivity2.this);
-                diZhiDialogs.setCanceledOnTouchOutside(false);
-                diZhiDialogs.setContents(baoCunBean.getWenzi1(), null);
-                diZhiDialogs.setOnQueRenListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        baoCunBean.setWenzi1(diZhiDialogs.getUrl());
-                        baoCunBeanDao.put(baoCunBean);
-                        diZhiDialogs.dismiss();
-                    }
-                });
-                diZhiDialogs.setQuXiaoListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        diZhiDialogs.dismiss();
-                    }
-                });
-
-                DiaLogUtil.init(diZhiDialogs);
-                diZhiDialogs.show();
-
-
-                break;
-
-            case R.id.rl9:
-
-                startActivity(new Intent(SheZhiActivity2.this, YuLanActivity.class));
-
-                break;
-            case R.id.rl15:
-
                 final XiuGaigGSMDialog xiuGaigGSMDialog = new XiuGaigGSMDialog(SheZhiActivity2.this);
                 xiuGaigGSMDialog.setContents(baoCunBean.getWenzi1(), null);
                 xiuGaigGSMDialog.setOnQueRenListener(new View.OnClickListener() {
@@ -616,45 +586,52 @@ public class SheZhiActivity2 extends Activity {
                 });
                 xiuGaigGSMDialog.show();
 
-//                zLoadingDialog = new ZLoadingDialog(SheZhiActivity2.this);
-//
-//                zLoadingDialog.setLoadingBuilder(Z_TYPE.DOUBLE_CIRCLE)//设置类型
-//                        .setLoadingColor(Color.parseColor("#0d2cf9"))//颜色
-//                        .setHintText("导出中...")
-//                        .setHintTextSize(16) // 设置字体大小 dp
-//                        .setHintTextColor(Color.WHITE)  // 设置字体颜色
-//                        .setDurationTime(0.5) // 设置动画时间百分比 - 0.5倍
-//                        .setDialogBackgroundColor(Color.parseColor("#CC111111")) // 设置背景色，默认白色
-//                        .show();
-//
-//
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        List<DaKaBean> daKaBeanList=daKaBeanBox.getAll();
-//                        if (daKaBeanList.size()==0){
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    zLoadingDialog.dismiss();
-//                                    EventBus.getDefault().post("暂无数据可以导出");
-//                                }
-//                            });
-//
-//                        }
-//                        SystemClock.sleep(2000 );
-//                        File file = new File(MyApplication.SDPATH+File.separator+DateUtils.timeHore(System.currentTimeMillis()+"")+".xls");
-//                        //文件夹是否已经存在
-//                        if (file.exists()) {
-//                            file.delete();
-//                        }
-//                        String[] title = {"id", "姓名", "部门", "人员类型", "时间"};
-//                        String fileName = file.toString();
-//                        ExcelUtil.initExcel(fileName, title);
-//                        ExcelUtil.writeObjListToExcel(daKaBeanList, fileName, SheZhiActivity2.this,daKaBeanBox);
-//
-//                    }
-//                }).start();
+                break;
+
+            case R.id.rl9:
+
+                startActivity(new Intent(SheZhiActivity2.this, YuLanActivity.class));
+
+                break;
+            case R.id.rl15:
+
+                zLoadingDialog = new ZLoadingDialog(SheZhiActivity2.this);
+                zLoadingDialog.setLoadingBuilder(Z_TYPE.DOUBLE_CIRCLE)//设置类型
+                        .setLoadingColor(Color.parseColor("#0d2cf9"))//颜色
+                        .setHintText("导出中...")
+                        .setHintTextSize(16) // 设置字体大小 dp
+                        .setHintTextColor(Color.WHITE)  // 设置字体颜色
+                        .setDurationTime(0.5) // 设置动画时间百分比 - 0.5倍
+                        .setDialogBackgroundColor(Color.parseColor("#CC111111")) // 设置背景色，默认白色
+                        .show();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<DaKaBean> daKaBeanList=daKaBeanBox.getAll();
+                        if (daKaBeanList.size()==0){
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    zLoadingDialog.dismiss();
+                                    EventBus.getDefault().post("暂无数据可以导出");
+                                }
+                            });
+
+                        }
+                        SystemClock.sleep(2000 );
+                        File file = new File(MyApplication.SDPATH+File.separator+DateUtils.timeHore(System.currentTimeMillis()+"")+".xls");
+                        //文件夹是否已经存在
+                        if (file.exists()) {
+                            file.delete();
+                        }
+                        String[] title = {"id", "姓名", "部门", "人员类型", "时间"};
+                        String fileName = file.toString();
+                        ExcelUtil.initExcel(fileName, title);
+                        ExcelUtil.writeObjListToExcel(daKaBeanList, fileName);
+
+                    }
+                }).start();
 
 
                 break;

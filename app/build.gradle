@@ -84,7 +84,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.sdsmdg.tastytoast:tastytoast:0.1.1'
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'org.apache.httpcomponents:httpcore:4.4.10'
     implementation 'com.squareup.okhttp3:okhttp:4.1.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
@@ -103,15 +103,8 @@ dependencies {
     implementation 'me.jessyan:autosize:1.1.2'//屏幕适配
     implementation 'com.alibaba:fastjson:1.1.71.android'
     implementation 'com.google.zxing:core:3.4.0'
-  //  implementation 'com.github.licheedev.Android-SerialPort-API:serialport:1.0.1'
-//    //信鸽jar，不包含厂商通道
-//    implementation  'com.tencent.xinge:xinge:4.3.5-release'
-//    //jg包
-//    implementation'com.tencent.jg:jg:1.1'
-//    //wup包
-//    implementation 'com.tencent.wup:wup:1.0.0.E-Release'
-//    //mid包，minSdkVersion 14
-//    implementation 'com.tencent.mid:mid:4.0.7-Release'
+   // implementation 'com.clj.fastble:FastBleLib:2.3.4'//BLE蓝牙
+  //  implementation 'com.inuker.bluetooth:library:1.4.0'//蓝牙
 
 }
 // 指定com.android.support 包的版本一致

@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="white">#FFFFFF</color>
+
     <color name="huise33">#34e9d2d6</color>
     <color name="lanse33">#1b37d6</color>
 
@@ -11,7 +11,7 @@
     <color name="tabtextcolo">#b7868686</color>
     <color name="write">#ffffffff</color>
     <color name="blake">#000000</color>
-    <color name="textcolor">#FD323314</color>
+
     <!-- 半透明 -->
 
     <!-- 用于页面背景 -->
@@ -24,4 +24,37 @@
     <!-- 橙色 -->
     <!-- 深灰 -->
     <!-- 深灰 -->
+    <color name="windowBackground">#E5E5E5</color>
+    <color name="bgcolor">#10BDC8</color>
+    <color name="btnsureon">#18A6AE</color>
+    <color name="btncancelon">#E6EFFF</color>
+
+    <color name="bannercolor">#111835</color>
+    <color name="linecolor">#C8C8C8</color>
+    <color name="bgpagecolor">#0B0F28</color><!--背景颜色-->
+    <color name="textcolor">#434B73</color><!--文字颜色-->
+    <color name="helptitle">#05F0FF</color><!--标题颜色-->
+    <color name="helpcontent">#E9EEF7</color><!--内容颜色-->
+    <color name="tips">#FF2D2D</color><!--内容颜色-->
+    <color name="icontitle">#99558CEC</color><!--40%透明的icon颜色-->
+
+
+    <color name="white">#ffffffff</color>
+    <color name="colorUnEnabled">#808080</color>
+    <color name="divider_color">#EDEDED</color>
+    <color name="gray_general_lable">#666666</color>
+    <color name="timertitle">#0E0E0E</color>
+
+    <color name="date_picker_bg">#FFFFFF</color>
+    <color name="date_picker_divider">#11112233</color>
+    <color name="date_picker_text_light">#59B29C</color>
+    <color name="date_picker_text_dark">#333333</color>
+
+    <color name="main_bg">#F0F0F0</color>
+    <color name="select_title_text">#B0B0B0</color>
+    <color name="current_time_bg">#FFFFFF</color>
+    <color name="current_time_text">#666666</color>
+    <color name="selected_time_text">#57C5E8</color>
+
+    <color name="fontColor">#222222</color>
 </resources>

@@ -34,6 +34,7 @@ import io.objectbox.query.LazyList;
 import megvii.testfacepass.pa.MyApplication;
 import megvii.testfacepass.pa.R;
 import megvii.testfacepass.pa.adapter.UserListAdapter;
+import megvii.testfacepass.pa.adapter.UserListAdapter2;
 import megvii.testfacepass.pa.beans.Subject;
 import megvii.testfacepass.pa.beans.Subject_;
 
@@ -42,12 +43,13 @@ public class UserListActivity extends Activity implements UserListAdapter.ItemDe
     private Box<Subject> subjectBox=MyApplication.myApplication.getSubjectBox();
     private ListView listView;
     private UserListAdapter adapter;
+    private UserListAdapter2 adapter2;
    // private List<Subject> subjectList=new ArrayList<>();
     private TextView zongrenshu;
     private EditText editText;
     //private ZLoadingDialog zLoadingDialog;
     LazyList<Subject> subjectLazyList;
-
+    private List<Subject> subjectList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,18 +118,29 @@ public class UserListActivity extends Activity implements UserListAdapter.ItemDe
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 if (subjectLazyList!=null && subjectLazyList.size()>0){
                     try {
                         facePassHandler.deleteFaceById(subjectLazyList.get(position).getTeZhengMa());
                         subjectBox.remove(subjectLazyList.get(position));
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Log.d("UserListActivity", e.getMessage()+"");
                     }
                     subjectLazyList= subjectBox.query().build().findLazy();
-                    adapter=new UserListAdapter(subjectLazyList,UserListActivity.this);
-                    adapter.setOnItemDeleteButtonClickListener(UserListActivity.this);
-                    listView.setAdapter(adapter);
-                    zongrenshu.setText("总人数:"+subjectLazyList.size());
+                   // Log.d("UserListActivity", subjectLazyList.get(0).getName());
+                    Log.d("UserListActivity", "subjectLazyList.size():" + subjectLazyList.size());
+                    if (subjectLazyList.size()<=0 || null==subjectLazyList.get(0)){
+                        Log.d("UserListActivity", "subjectLazyList.size()<=0");
+                        zongrenshu.setText("总人数:0");
+                    }else {
+                        Log.d("UserListActivity", "subjectLazyList.size()>0");
+                        adapter=new UserListAdapter(subjectLazyList,UserListActivity.this);
+                        adapter.setOnItemDeleteButtonClickListener(UserListActivity.this);
+                        listView.setAdapter(adapter);
+                        zongrenshu.setText("总人数:"+subjectLazyList.size());
+                    }
+
                 }
                 dialog.dismiss();
 
