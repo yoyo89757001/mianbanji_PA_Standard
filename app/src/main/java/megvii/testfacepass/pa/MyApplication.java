@@ -27,6 +27,7 @@ import megvii.testfacepass.pa.beans.DaKaBean;
 import megvii.testfacepass.pa.beans.HuiFuBean;
 import megvii.testfacepass.pa.beans.IDCardBean;
 
+import megvii.testfacepass.pa.beans.IDCardTakeBean;
 import megvii.testfacepass.pa.beans.MyObjectBox;
 import megvii.testfacepass.pa.beans.Subject;
 
@@ -52,7 +53,7 @@ public class MyApplication extends Application implements Application.ActivityLi
     //private Box<LunBoBean> lunBoBeanBox=null;
    // private Box<XinXiAll> xinXiAllBox=null;
    // private Box<XinXiIdBean> xinXiIdBeanBox= null;
-   // private Box<GuanHuai> guanHuaiBox=null;
+    private Box<IDCardTakeBean> idCardTakeBeanBox=null;
     private Box<HuiFuBean> huiFuBeanBox = null;
     private Box<BenDiJiLuBean> benDiJiLuBeanBox = null;
     private Box<DaKaBean> daKaBeanBox = null;
@@ -120,7 +121,7 @@ public class MyApplication extends Application implements Application.ActivityLi
         baoCunBeanBox= mBoxStore.boxFor(BaoCunBean.class);
         subjectBox= mBoxStore.boxFor(Subject.class);
         huiFuBeanBox= mBoxStore.boxFor(HuiFuBean.class);
-      //  xinXiAllBox= mBoxStore.boxFor(XinXiAll.class);
+        idCardTakeBeanBox= mBoxStore.boxFor(IDCardTakeBean.class);
        // xinXiIdBeanBox= mBoxStore.boxFor(XinXiIdBean.class);
       //  guanHuaiBox= mBoxStore.boxFor(GuanHuai.class);
        // chengShiIDBeanBox= mBoxStore.boxFor(ChengShiIDBean.class);
@@ -229,9 +230,9 @@ public class MyApplication extends Application implements Application.ActivityLi
         return huiFuBeanBox;
     }
 //
-//    public Box<XinXiAll> getXinXiAllBox(){
-//        return xinXiAllBox;
-//    }
+    public Box<IDCardTakeBean> getIdCardTakeBeanBox(){
+        return idCardTakeBeanBox;
+    }
 //    public Box<XinXiIdBean> getXinXiIdBeanBox(){
 //        return xinXiIdBeanBox;
 //    }

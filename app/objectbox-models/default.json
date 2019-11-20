@@ -846,7 +846,7 @@
     },
     {
       "id": "14:3350548654480358387",
-      "lastPropertyId": "2:203771511154684014",
+      "lastPropertyId": "3:2391721490145157644",
       "name": "IDCardBean",
       "properties": [
         {
@@ -856,6 +856,10 @@
         {
           "id": "2:203771511154684014",
           "name": "idCard"
+        },
+        {
+          "id": "3:2391721490145157644",
+          "name": "name"
         }
       ],
       "relations": []
@@ -895,9 +899,33 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "16:9098849031565325985",
+      "lastPropertyId": "4:5525662932603967308",
+      "name": "IDCardTakeBean",
+      "properties": [
+        {
+          "id": "1:2455422856266434569",
+          "name": "id"
+        },
+        {
+          "id": "2:3981164606241640181",
+          "name": "idCard"
+        },
+        {
+          "id": "3:889079653975635683",
+          "name": "name"
+        },
+        {
+          "id": "4:5525662932603967308",
+          "name": "time"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "15:6166091886650491321",
+  "lastEntityId": "16:9098849031565325985",
   "lastIndexId": "1:4648755662043650393",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

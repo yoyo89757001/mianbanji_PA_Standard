@@ -4,12 +4,21 @@ import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
 @Entity
-public class IDCardBean {
+public class IDCardTakeBean {
 
-    @Id(assignable = true)
+    @Id
     private Long id;
     private String idCard;
     private String name;
+    private long time;
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
 
     public String getName() {
         return name;

@@ -895,7 +895,7 @@
                     android:layout_toRightOf="@+id/im28"
                     android:layout_marginLeft="16px"
                     android:textColor="#6c020202"
-                    android:text="选择机型"
+                    android:text="选择机型(选择对应机型开启屏保)"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

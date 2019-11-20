@@ -3,12 +3,8 @@ package megvii.testfacepass.pa.tuisong_jg;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
-import android.os.SystemClock;
 import android.util.Log;
 import com.alibaba.fastjson.JSON;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.pingan.ai.access.common.PaAccessControlMessage;
 import com.pingan.ai.access.entiry.PaAccessFaceInfo;
 import com.pingan.ai.access.manager.PaAccessControl;
@@ -30,9 +26,6 @@ import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.FileHeader;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
-
-import org.greenrobot.eventbus.EventBus;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,7 +37,6 @@ import java.util.List;
 
 import io.objectbox.Box;
 import io.objectbox.query.LazyList;
-import io.objectbox.query.Query;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.format.Colour;
@@ -62,15 +54,15 @@ import megvii.testfacepass.pa.beans.DaKaBean_;
 import megvii.testfacepass.pa.beans.IDBean;
 import megvii.testfacepass.pa.beans.IDCardBean;
 import megvii.testfacepass.pa.beans.IDCardBean_;
+import megvii.testfacepass.pa.beans.IDCardTakeBean;
+import megvii.testfacepass.pa.beans.IDCardTakeBean_;
 import megvii.testfacepass.pa.beans.ResBean;
 import megvii.testfacepass.pa.beans.Subject;
 import megvii.testfacepass.pa.beans.Subject_;
-import megvii.testfacepass.pa.ui.SheZhiActivity2;
 import megvii.testfacepass.pa.utils.BitmapUtil;
 import megvii.testfacepass.pa.utils.DateUtils;
-import megvii.testfacepass.pa.utils.ExcelUtil;
 import megvii.testfacepass.pa.utils.FileUtil;
-import megvii.testfacepass.pa.utils.GetDeviceId;
+
 
 
 
@@ -88,7 +80,9 @@ public class MyService {
     private final static String UTF8_ENCODING = "UTF-8";
 
     private Box<Subject> subjectBox  = MyApplication.myApplication.getSubjectBox();
-    private Box<DaKaBean> daKaBeanBox  = MyApplication.myApplication.getDaKaBeanBox();;
+    private Box<DaKaBean> daKaBeanBox  = MyApplication.myApplication.getDaKaBeanBox();
+    private Box<IDCardBean> idCardBeanBox  = MyApplication.myApplication.getIdCardBeanBox();
+    private Box<IDCardTakeBean> idCardTakeBeanBox  = MyApplication.myApplication.getIdCardTakeBeanBox();
     private PaAccessControl paAccessControl=PaAccessControl.getInstance();
     private  String serialnumber= MyApplication.myApplication.getBaoCunBeanBox().get(123456).getJihuoma();
 
@@ -455,6 +449,7 @@ public class MyService {
                 IDCardBean ii =new IDCardBean();
                 ii.setId(System.currentTimeMillis());
                 ii.setIdCard(object.getId());
+                ii.setName(object.getName());
                 idCardBeanBox.put(ii);
             }
             Log.d("MyService", "subjectBox.getAll().size():" + idCardBeanBox.getAll().size());
@@ -488,9 +483,9 @@ public class MyService {
         }
     }
 
-    //删除全部人员
+    //打卡记录
     @GetMapping(path = "/excel")
-    public void getFile(HttpResponse response,@QueryParam(name = "time",required = false) String time){
+    public void excel(HttpResponse response,@QueryParam(name = "time",required = false) String time){
        // Log.d("MyService", time+"time");
        // Log.d("MyService", "getMonthLastDay(2019,8):" + getMonthLastDay(2019,9));
         if (time!=null && !time.equals("")){
@@ -807,6 +802,329 @@ public class MyService {
         }
 
       //   FileBody body = new FileBody(file);
+        // response.addHeader("Content-Disposition", "attachment;filename=AndServer.txt");
+        // response.setBody(body);
+        //这里我们添加了一个Content-Disposition的响应头，attachment的意思是告诉浏览器，
+        // 这个文件应该被下载，filename=AndServer.txt的意思是告诉浏览器，这个文件默认被命名为AndServer.txt。
+    }
+
+    //ID卡记录
+    @GetMapping(path = "/cardExcel")
+    public void idExcel(HttpResponse response,@QueryParam(name = "time",required = false) String time){
+        // Log.d("MyService", time+"time");
+        // Log.d("MyService", "getMonthLastDay(2019,8):" + getMonthLastDay(2019,9));
+        if (time!=null && !time.equals("")){
+            String []ll = time.split("-");
+            if (ll.length==2){
+                try {
+                    long min=0,max=0;
+                    int t1= Integer.parseInt(ll[0]);
+                    int t2= Integer.parseInt(ll[1]);
+                    min = Long.parseLong(DateUtils.dataOne(time+"-"+1));//从这个月的一号开始
+                    //获取这个月有多少天
+                    // Log.d("MyService",min+"开始时间");
+                    int ssdd=getMonthLastDay(t1,t2);
+                    max = Long.parseLong(DateUtils.dataOne(time+"-"+ssdd));//这个月的最后一天
+                    // Log.d("MyService",max+"结束时间");
+                    // Log.d("MyService", DateUtils.time(min+""));
+                    // Log.d("MyService", DateUtils.time(max+""));
+                    if (min<=0 || max <= 0){
+                        StringBody body=new StringBody("时间格式错误");
+                        response.setBody(body);
+                    }else {
+                        //时间算好了开始查询
+                        //创建文件夹
+                        File ff = new File(MyApplication.SDPATH+File.separator+ "zipid");
+                        if (!ff.exists()){
+                            Log.d(TAG, "创建zips文件夹:" + ff.mkdirs());
+                        }
+                        boolean flag=false;
+                        LazyList<IDCardBean> subjectLazyList = idCardBeanBox.query().build().findLazy();
+                        if (subjectLazyList.size()>0){
+                            for (IDCardBean subject:subjectLazyList){
+                                LazyList<IDCardTakeBean> daKaBeanList = idCardTakeBeanBox.query().equal(IDCardTakeBean_.idCard, subject.getIdCard())
+                                        .between(IDCardTakeBean_.time,min,max)//过滤给定2者之间值
+                                        .build().findLazy();
+                                if (daKaBeanList.size()>0){
+                                    String fileName = subject.getName()+DateUtils.timeHore(System.currentTimeMillis()+"")+".xls";
+                                    File file = new File(MyApplication.SDPATH+File.separator+"zipid"+File.separator+fileName);
+                                    //文件夹是否已经存在
+                                    if (file.exists()) {
+                                        boolean ss = file.delete();
+                                    }
+                                    String[] title = {"卡号", "姓名","时间"};
+                                    initExcel(file.toString(), title);
+                                    WritableWorkbook writebook = null;
+                                    InputStream in = null;
+                                    try {
+                                        WorkbookSettings setEncode = new WorkbookSettings();
+                                        setEncode.setEncoding(UTF8_ENCODING);
+                                        in = new FileInputStream(file);
+                                        Workbook workbook = Workbook.getWorkbook(in);
+                                        writebook = Workbook.createWorkbook(file, workbook);
+                                        WritableSheet sheet = writebook.getSheet(0);
+                                        for (int j = 0; j < daKaBeanList.size(); j++) {
+                                            IDCardTakeBean projectBean =  daKaBeanList.get(j);
+                                            List<String> list = new ArrayList<>();
+                                            list.add(projectBean.getIdCard());
+                                            list.add(projectBean.getName());
+                                            list.add(DateUtils.time(projectBean.getTime()+""));
+                                            for (int i = 0; i < list.size(); i++) {
+                                                sheet.addCell(new Label(i, j + 1, list.get(i), arial12format));
+                                                if (list.get(i).length() <= 4) {
+                                                    //设置列宽
+                                                    sheet.setColumnView(i, list.get(i).length() + 8);
+                                                } else {
+                                                    //设置列宽
+                                                    sheet.setColumnView(i, list.get(i).length() + 5);
+                                                }
+                                            }
+                                            //设置行高
+                                            sheet.setRowView(j + 1, 350);
+                                        }
+                                        writebook.write();
+                                        flag=true;
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                        StringBody body=new StringBody(e.getMessage()+"");
+                                        response.setBody(body);
+                                    } finally {
+                                        if (writebook != null) {
+                                            try {
+                                                writebook.close();
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                        if (in != null) {
+                                            try {
+                                                in.close();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            //循环完了，压缩文件；
+                            //  File sourceFile = new File(MyApplication.SDPATH+File.separator+"zips");
+                            //  File zipFile_ = new File(MyApplication.SDPATH);
+                            // 生成的压缩文件
+                            ZipFile zipFile = new ZipFile(MyApplication.SDPATH+
+                                    File.separator+"刷卡记录.zip");
+                            if (zipFile.getFile().exists()){
+                                Log.d(TAG, "删除存在的zip:" + zipFile.getFile().delete());
+                            }
+                            ZipParameters parameters = new ZipParameters();
+                            // 压缩方式
+                            parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
+                            // 压缩级别
+                            parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
+                            // 要打包的文件夹
+                            File currentFile = new File(MyApplication.SDPATH+File.separator+"zipid");
+                            File[] fs = currentFile.listFiles();
+                            if (fs!=null){
+                                // 遍历test文件夹下所有的文件、文件夹
+                                for (File f : fs) {
+                                    if (f.isDirectory()) {
+                                        zipFile.addFolder(f.getPath(), parameters);
+                                    } else {
+                                        zipFile.addFile(f, parameters);
+                                    }
+                                }
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            Log.d(TAG, "删除zips文件夹:" + FileUtil.delete(ff.getCanonicalPath()));
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }).start();
+
+                                if (flag){
+                                    FileBody body = new FileBody(zipFile.getFile());
+                                    response.addHeader("Content-Disposition", "attachment;filename="+zipFile.getFile().getName());
+                                    response.setBody(body);
+                                }else {
+                                    StringBody body=new StringBody("没有该时间的刷卡记录");
+                                    response.setBody(body);
+                                }
+                            }else {
+                                StringBody body=new StringBody("压缩错误");
+                                response.setBody(body);
+                            }
+                        }else {
+                            StringBody body=new StringBody("暂无刷卡数据");
+                            response.setBody(body);
+                        }
+
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                    StringBody body=new StringBody("时间格式错误");
+                    response.setBody(body);
+                }
+            }else {
+                StringBody body=new StringBody("时间格式错误");
+                response.setBody(body);
+
+            }
+
+        }else {
+            //获取当月时间
+            try {
+                long min=0,max=0;
+                String time2 = DateUtils.tim(System.currentTimeMillis() + "");
+                String[] ssyy = time2.split("-");
+                int t1 = Integer.parseInt(ssyy[0]);
+                int t2 = Integer.parseInt(ssyy[1]);
+                min = Long.parseLong(DateUtils.dataOne(time2 + "-" + 1));//从这个月的一号开始
+                //获取这个月有多少天
+                // Log.d("MyService", min + "开始时间");
+                int ssdd = getMonthLastDay(t1, t2);
+                max = Long.parseLong(DateUtils.dataOne(time2 + "-" + ssdd));//这个月的最后一天
+                // Log.d("MyService", max + "结束时间");
+                // Log.d("MyService", DateUtils.time(min + ""));
+                // Log.d("MyService", DateUtils.time(max + ""));
+                if (min <= 0 || max <= 0) {
+                    StringBody body = new StringBody("时间格式错误");
+                    response.setBody(body);
+                } else {
+                    File ff = new File(MyApplication.SDPATH + File.separator + "zipid");
+                    if (!ff.exists()) {
+                        Log.d(TAG, "创建zipid文件夹:" + ff.mkdirs());
+                    }
+                    boolean flag = false;
+                    LazyList<IDCardBean> subjectLazyList = idCardBeanBox.query().build().findLazy();
+                    if (subjectLazyList.size() > 0) {
+                        for (IDCardBean subject : subjectLazyList) {
+                            LazyList<IDCardTakeBean> daKaBeanList = idCardTakeBeanBox.query().equal(IDCardTakeBean_.idCard, subject.getIdCard())
+                                    .between(IDCardTakeBean_.time, min, max)//过滤给定2者之间值
+                                    .build().findLazy();
+                            if (daKaBeanList.size() > 0) {
+                                String fileName = subject.getName() + DateUtils.timeHore(System.currentTimeMillis() + "") + ".xls";
+                                File file = new File(MyApplication.SDPATH + File.separator + "zips" + File.separator + fileName);
+                                //文件夹是否已经存在
+                                if (file.exists()) {
+                                    boolean ss = file.delete();
+                                }
+                                String[] title = {"卡号", "姓名", "时间"};
+                                initExcel(file.toString(), title);
+                                WritableWorkbook writebook = null;
+                                InputStream in = null;
+                                try {
+                                    WorkbookSettings setEncode = new WorkbookSettings();
+                                    setEncode.setEncoding(UTF8_ENCODING);
+                                    in = new FileInputStream(file);
+                                    Workbook workbook = Workbook.getWorkbook(in);
+                                    writebook = Workbook.createWorkbook(file, workbook);
+                                    WritableSheet sheet = writebook.getSheet(0);
+                                    for (int j = 0; j < daKaBeanList.size(); j++) {
+                                        IDCardTakeBean projectBean = daKaBeanList.get(j);
+                                        List<String> list = new ArrayList<>();
+                                        list.add(projectBean.getIdCard());
+                                        list.add(projectBean.getName());
+                                        list.add(DateUtils.time(projectBean.getTime() + ""));
+                                        for (int i = 0; i < list.size(); i++) {
+                                            sheet.addCell(new Label(i, j + 1, list.get(i), arial12format));
+                                            if (list.get(i).length() <= 4) {
+                                                //设置列宽
+                                                sheet.setColumnView(i, list.get(i).length() + 8);
+                                            } else {
+                                                //设置列宽
+                                                sheet.setColumnView(i, list.get(i).length() + 5);
+                                            }
+                                        }
+                                        //设置行高
+                                        sheet.setRowView(j + 1, 350);
+                                    }
+                                    writebook.write();
+                                    flag = true;
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    StringBody body = new StringBody(e.getMessage() + "");
+                                    response.setBody(body);
+                                } finally {
+                                    if (writebook != null) {
+                                        try {
+                                            writebook.close();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if (in != null) {
+                                        try {
+                                            in.close();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //循环完了，压缩文件；
+                        // 生成的压缩文件
+                        ZipFile zipFile = new ZipFile(MyApplication.SDPATH +
+                                File.separator + "刷卡记录.zip");
+                        if (zipFile.getFile().exists()) {
+                            Log.d(TAG, "删除存在的zip:" + zipFile.getFile().delete());
+                        }
+                        ZipParameters parameters = new ZipParameters();
+                        // 压缩方式
+                        parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
+                        // 压缩级别
+                        parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
+                        // 要打包的文件夹
+                        File currentFile = new File(MyApplication.SDPATH + File.separator + "zipid");
+                        File[] fs = currentFile.listFiles();
+                        if (fs != null) {
+                            // 遍历test文件夹下所有的文件、文件夹
+                            for (File f : fs) {
+                                if (f.isDirectory()) {
+                                    zipFile.addFolder(f.getPath(), parameters);
+                                } else {
+                                    zipFile.addFile(f, parameters);
+                                }
+                            }
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        Log.d(TAG, "删除zipid文件夹:" + FileUtil.delete(ff.getCanonicalPath()));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }).start();
+
+                            if (flag) {
+                                FileBody body = new FileBody(zipFile.getFile());
+                                response.addHeader("Content-Disposition", "attachment;filename=" + zipFile.getFile().getName());
+                                response.setBody(body);
+                            } else {
+                                StringBody body = new StringBody("没有该时间的刷卡记录");
+                                response.setBody(body);
+                            }
+                        } else {
+                            StringBody body = new StringBody("压缩错误");
+                            response.setBody(body);
+                        }
+                    } else {
+                        StringBody body = new StringBody("暂无刷卡数据");
+                        response.setBody(body);
+                    }
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+                StringBody body = new StringBody(e.getMessage()+"");
+                response.setBody(body);
+            }
+
+        }
+
+        //   FileBody body = new FileBody(file);
         // response.addHeader("Content-Disposition", "attachment;filename=AndServer.txt");
         // response.setBody(body);
         //这里我们添加了一个Content-Disposition的响应头，attachment的意思是告诉浏览器，

@@ -145,7 +145,7 @@ public class SheZhiActivity2 extends Activity {
     private int shibai = -1;
     private StringBuilder stringBuilder2 = new StringBuilder();
     private PaAccessControl paAccessControl = null;
-    private boolean isFF = false, isFG = true;
+    private boolean isFF = false;
 
 
     @Override
