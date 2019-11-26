@@ -6,8 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraManager;
-import android.os.SystemClock;
+
+
 
 import android.os.Bundle;
 import android.util.Log;
@@ -48,9 +48,9 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class BaseActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
 
     //80个的平安算法
-    private static final String APP_ID = "cURlaUppZEhDZEZoaW1KQmpScXJTUjA5YzlLTmVZeWZXSmd0eFJUVG10VT0=";
-    private static final String APP_KEY = "21332D4DFCD12784";
-    private static final String AUTH_PRODUCT_URL = "https://biap-dev-auth.pingan.com/dev-auth-web/biap/device/v3/activeDeviceAuthInfo";
+  //  private static final String APP_ID = "cURlaUppZEhDZEZoaW1KQmpScXJTUjA5YzlLTmVZeWZXSmd0eFJUVG10VT0=";
+ //   private static final String APP_KEY = "21332D4DFCD12784";
+  //  private static final String AUTH_PRODUCT_URL = "https://biap-dev-auth.pingan.com/dev-auth-web/biap/device/v3/activeDeviceAuthInfo";
 //    private static final String AUTH_METHOD = "/dev-auth-web/biap/device/v2/activeDeviceAuthInfo"; //Robin URL变为v2
     private ProgressDialog mProgressDialog;
     private BaoCunBean baoCunBean;
@@ -137,25 +137,25 @@ public class BaseActivity extends AppCompatActivity implements EasyPermissions.P
         showDialog(true);
         // 查询，批量插入等耗时操作，请开启线程。请勿开启多线程同时进行SDK不同的操作，等一个动作完成后，再进行其他操作
         // 必须要等SDK初始化完成后才能进行后续操作
-//        if (baoCunBean.getAppurl()==null || baoCunBean.getAppid()==null|| baoCunBean.getAppkey()==null){
-//            showDialog(false);
-//            ToastUtils.show2(BaseActivity.this, "初始化失败,激活码为空");
-//            startActivity(new Intent(BaseActivity.this,MianBanJiActivity2.class));
-//            finish();
-//            return;
-//        }
+        if (baoCunBean.getAppurl()==null || baoCunBean.getAppid()==null|| baoCunBean.getAppkey()==null){
+            showDialog(false);
+            ToastUtils.show2(BaseActivity.this, "初始化失败,激活码为空");
+            startActivity(new Intent(BaseActivity.this,MianBanJiActivity3.class));
+            finish();
+            return;
+        }
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                // if (baoCunBean.getAppid()!=null && baoCunBean.getAppkey()!=null && baoCunBean.getAppurl()!=null){
                     PaLicenseManager.getInstance()
-                             .setAppId(APP_ID)
-                             .setAppKey(APP_KEY)
-                             .setURL(AUTH_PRODUCT_URL)
-                          //  .setAppId( baoCunBean.getAppid())
-                          //  .setAppKey(baoCunBean.getAppkey())
-                           // .setURL(baoCunBean.getAppurl())
+                            // .setAppId(APP_ID)
+                            // .setAppKey(APP_KEY)
+                            // .setURL(AUTH_PRODUCT_URL)
+                            .setAppId( baoCunBean.getAppid())
+                            .setAppKey(baoCunBean.getAppkey())
+                            .setURL(baoCunBean.getAppurl())
                             .setSDKType(SDKType.ONEVN)
                             .initAuthority(BaseActivity.this, new PaLicenseManager.InitListener() {
                                 @Override

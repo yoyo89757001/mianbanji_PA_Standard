@@ -1,6 +1,7 @@
 package megvii.testfacepass.pa.utils;
 
 import com.common.pos.api.util.TPS980PosUtil;
+import com.hwit.HwitManager;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -57,12 +58,14 @@ public class DengUT {
 
     public static void closeWrite(){
         writeGpio(CAMERA_WHITE_PATH,0);
+        HwitManager.HwitSetIOValue(5,0);
     }
     public static void openWrite(){
         writeGpio(RED_LAMP_PATH,0); //关红灯
         writeGpio(GREEN_LAMP_PATH,0);//关绿灯
         writeGpio(GPIO7_PATH,1);
         writeGpio(CAMERA_WHITE_PATH,255);
+        HwitManager.HwitSetIOValue(5,1);
     }
 
     public static void closeRed(){
@@ -75,13 +78,20 @@ public class DengUT {
         writeGpio(CAMERA_WHITE_PATH,255);
     }
 
-    public static void closeLOED(){
+    public static void closeLOED(){//关屏幕
         writeGpio(BRIGHTNESS_PATH,0);
     }
 
-    public static void openLOED(){
+    public static void openLOED(){//开屏幕
         writeGpio(BRIGHTNESS_PATH,255);
     }
+    public static void openLOED8cun(){//开屏幕
+        HwitManager.HwitOpenBacklight();
+    }
+    public static void closeLOED8cun(){//关屏幕
+        HwitManager.HwitCloseBacklight();
+    }
+
     public static void closeGreen(){
         writeGpio(GREEN_LAMP_PATH,0);
     }
@@ -95,10 +105,12 @@ public class DengUT {
     public static void closeDool(){
         writeGpio(RELAY_CTL_PATH,0);
         TPS980PosUtil.setRelayPower(0);
+        HwitManager.HwitSetIOValue(9,0);
     }
     public static void openDool(){
         writeGpio(RELAY_CTL_PATH,1);
         TPS980PosUtil.setRelayPower(1);
+        HwitManager.HwitSetIOValue(9,1);
     }
 
 

@@ -24,6 +24,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.hwit.HwitManager;
 import com.pingan.ai.access.common.PaAccessControlMessage;
 import com.pingan.ai.access.manager.PaAccessControl;
 import com.pingan.ai.access.result.PaAccessDetectFaceResult;
@@ -65,6 +66,7 @@ import megvii.testfacepass.pa.dialog.YuYingDialog;
 import megvii.testfacepass.pa.dialogall.ToastUtils;
 import megvii.testfacepass.pa.utils.BitmapUtil;
 import megvii.testfacepass.pa.utils.DateUtils;
+import megvii.testfacepass.pa.utils.DengUT;
 import megvii.testfacepass.pa.utils.DiaLogUtil;
 import megvii.testfacepass.pa.utils.ExcelUtil;
 import megvii.testfacepass.pa.utils.FaceInit;
@@ -158,12 +160,14 @@ public class SheZhiActivity2 extends Activity {
         //在setContentView();后面加上适配语句
         options1Items.add(new JsonBean("天波"));
         options1Items.add(new JsonBean("涂鸦"));
+        options1Items.add(new JsonBean("户外防水8寸屏"));
         baoCunBeanDao = MyApplication.myApplication.getBaoCunBeanBox();
         // chengShiIDBeanBox = MyApplication.myApplication.getChengShiIDBeanBox();
         baoCunBean = baoCunBeanDao.get(123456L);
         // mFacePassHandler=MyApplication.myApplication.getFacePassHandler();
         EventBus.getDefault().register(this);//订阅
-
+        DengUT.openLOED8cun();
+        DengUT.openLOED();
         if (baoCunBean.isHuoTi()) {
             switchs.setChecked(true);
         } else {
@@ -785,6 +789,8 @@ public class SheZhiActivity2 extends Activity {
         this.sendBroadcast(intent);
         sendBroadcast(new Intent("com.android.internal.policy.impl.showNavigationBar"));
         sendBroadcast(new Intent("com.android.systemui.statusbar.phone.statusopen"));
+        HwitManager.HwitSetShowSystemBar(SheZhiActivity2.this);
+        HwitManager.HwitSetDisableSlideShowSysBar(0);
     }
 
 

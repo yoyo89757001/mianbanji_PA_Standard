@@ -124,8 +124,7 @@
         <!-- android:resource="@xml/auto_reply_service_config"/> -->
         <!-- </service> -->
         <service android:name=".dialogall.CommonDialogService" />
-        <service
-            android:name="com.inuker.bluetooth.library.BluetoothService" />
+
     </application>
 
 

@@ -54,6 +54,7 @@ import com.bumptech.glide.request.target.Target;
 import com.common.pos.api.util.TPS980PosUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.hwit.HwitManager;
 import com.pingan.ai.access.common.PaAccessControlMessage;
 import com.pingan.ai.access.common.PaAccessDetectConfig;
 import com.pingan.ai.access.entiry.PaAccessFaceInfo;
@@ -136,10 +137,10 @@ public class MianBanJiActivity3 extends Activity implements CameraManager.Camera
     // @BindView(R.id.tishibg)
     // ImageView tishibg;
 
-//    @BindView(R.id.xiping)
-//    ImageView xiping;
-//    @BindView(R.id.tishiyu)
-//    TextView tishiyu;
+    @BindView(R.id.xiping)
+    ImageView xiping;
+    @BindView(R.id.tishiyu)
+    TextView tishiyu;
     @BindView(R.id.root_layout)
     RelativeLayout rootLayout;
 
@@ -408,6 +409,9 @@ public class MianBanJiActivity3 extends Activity implements CameraManager.Camera
                     }
                     case 222: {
                         DengUT.closeDool();
+                        if (baoCunBean.getDangqianChengShi2() != null && baoCunBean.getDangqianChengShi2().equals("户外防水8寸屏")) {
+                            DengUT.closeLOED8cun();
+                        }
                         break;
                     }
                     case 333:
@@ -415,13 +419,13 @@ public class MianBanJiActivity3 extends Activity implements CameraManager.Camera
                         onP2 = true;
                         if (paAccessControl != null)
                             paAccessControl.startFrameDetect();
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                xiping.setVisibility(View.GONE);
-//                                tishiyu.setVisibility(View.GONE);
-//                            }
-//                        });
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                xiping.setVisibility(View.GONE);
+                                tishiyu.setVisibility(View.GONE);
+                            }
+                        });
                        // if (anim != null)
                          //   anim.cancel();
                         DengUT.openLOED();
@@ -431,13 +435,13 @@ public class MianBanJiActivity3 extends Activity implements CameraManager.Camera
                         onP2 = false;
                         if (paAccessControl != null)
                             paAccessControl.stopFrameDetect();
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                xiping.setVisibility(View.VISIBLE);
-//                                tishiyu.setVisibility(View.VISIBLE);
-//                            }
-//                        });
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                xiping.setVisibility(View.VISIBLE);
+                                tishiyu.setVisibility(View.VISIBLE);
+                            }
+                        });
 //                        anim = ValueAnimator.ofFloat(0, 1.0f);
 //                        anim.setDuration(4000);
 //                        anim.setRepeatMode(ValueAnimator.REVERSE);
@@ -1067,7 +1071,6 @@ public class MianBanJiActivity3 extends Activity implements CameraManager.Camera
                         }
                         break;
                     }
-
                     while (isLink) {
                         SystemClock.sleep(500);
                     }
@@ -1313,6 +1316,7 @@ public class MianBanJiActivity3 extends Activity implements CameraManager.Camera
             if (!DengUT.isOPEN) {
                 DengUT.isOPEN = true;
                 DengUT.openWrite();
+                DengUT.openLOED8cun();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -1365,7 +1369,7 @@ public class MianBanJiActivity3 extends Activity implements CameraManager.Camera
 //                if (isShow)
 //                tishi.setVisibility(View.VISIBLE)
                 pp++;
-                if (pp > 45) {
+                if (pp > 30) {
                     faceId = "";
                     pp = 0;
                     if (feature2 == -1) {
@@ -1429,7 +1433,7 @@ public class MianBanJiActivity3 extends Activity implements CameraManager.Camera
         @Override
         public void onMultiFacesDetectFrameBaseInfo(int i, List<PaAccessMultiFaceBaseInfo> list) {
 
-            Log.d("MianBanJiActivity3", "list.size():" + list.size());
+          //  Log.d("MianBanJiActivity3", "list.size():" + list.size());
 
         }
     };
@@ -1922,6 +1926,8 @@ public class MianBanJiActivity3 extends Activity implements CameraManager.Camera
         this.sendBroadcast(intent);
         sendBroadcast(new Intent("com.android.internal.policy.impl.hideNavigationBar"));
         sendBroadcast(new Intent("com.android.systemui.statusbar.phone.statusclose"));
+        HwitManager.HwitSetHideSystemBar(MianBanJiActivity3.this);
+        HwitManager.HwitSetDisableSlideShowSysBar(1);
     }
 
     private void menjing1() {
