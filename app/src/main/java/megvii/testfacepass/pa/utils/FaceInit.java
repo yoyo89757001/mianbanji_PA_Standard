@@ -52,9 +52,9 @@ public class FaceInit {
     private BaoCunBean baoCunBean;
     private Box<BaoCunBean> baoCunBeanBox = MyApplication.myApplication.getBaoCunBeanBox();
     private OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .writeTimeout(30000, TimeUnit.MILLISECONDS)
-            .connectTimeout(30000, TimeUnit.MILLISECONDS)
-            .readTimeout(30000, TimeUnit.MILLISECONDS)
+            .writeTimeout(20000, TimeUnit.MILLISECONDS)
+            .connectTimeout(20000, TimeUnit.MILLISECONDS)
+            .readTimeout(20000, TimeUnit.MILLISECONDS)
 //				    .cookieJar(new CookiesManager())
             //         .retryOnConnectionFailure(true)
             .build();
@@ -140,7 +140,7 @@ public class FaceInit {
                 //.get()
                 .post(body)
                 .url(url+recess2(System.currentTimeMillis()));
-
+      //  Log.d("FaceInit", url + recess2(System.currentTimeMillis()));
         // step 3：创建 Call 对象
         Call call = okHttpClient.newCall(requestBuilder.build());
         //step 4: 开始异步请求
@@ -150,10 +150,9 @@ public class FaceInit {
                 Log.d("AllConnects", "请求失败"+e.getMessage());
                 EventBus.getDefault().post("网络请求失败");
             }
-
             @Override
             public void onResponse(Call call, Response response) {
-              //  Log.d("AllConnects", "请求成功"+call.request().toString());
+                Log.d("AllConnects", "请求成功"+call.request().toString());
                 //获得返回体
                 String ss=null;
                 try{
@@ -204,7 +203,6 @@ public class FaceInit {
               //  Log.d("AllConnects", "请求失败"+e.getMessage());
                 EventBus.getDefault().post("网络请求失败");
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
               //  Log.d("AllConnects", "请求成功"+call.request().toString());

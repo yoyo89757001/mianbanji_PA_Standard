@@ -273,7 +273,7 @@ public class YuLanActivity extends Activity implements CameraManager.CameraListe
                 if (pp > 8) {
                     faceId = "";
                     pp = 0;
-                        msrBitmap = nv21ToBitmap.nv21ToBitmap(detectResult.frame, detectResult.frameWidth, detectResult.frameHeight);
+                        msrBitmap = nv21ToBitmap.nv21ToBitmap(detectResult.rgbFrame, detectResult.frameWidth, detectResult.frameHeight);
                         msrBitmap= BitmapUtil.rotateBitmap(msrBitmap, SettingVar.msrBitmapRotation);
                          if (isLink) {
                              isLink=false;

@@ -148,7 +148,7 @@ public class SheZhiActivity2 extends Activity {
     private StringBuilder stringBuilder2 = new StringBuilder();
     private PaAccessControl paAccessControl = null;
     private boolean isFF = false;
-
+    private int jiqiType=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,10 +164,28 @@ public class SheZhiActivity2 extends Activity {
         baoCunBeanDao = MyApplication.myApplication.getBaoCunBeanBox();
         // chengShiIDBeanBox = MyApplication.myApplication.getChengShiIDBeanBox();
         baoCunBean = baoCunBeanDao.get(123456L);
+        if (baoCunBean.getDangqianChengShi2()!=null){
+            switch (baoCunBean.getDangqianChengShi2()){
+                case "天波":
+                    jiqiType=0;
+                    break;
+                case "涂鸦":
+                    jiqiType=1;
+                    break;
+                case "户外防水8寸屏":
+                    jiqiType=2;
+                    break;
+            }
+        }
         // mFacePassHandler=MyApplication.myApplication.getFacePassHandler();
         EventBus.getDefault().register(this);//订阅
-        DengUT.openLOED8cun();
+        if (jiqiType==2){
+            DengUT.openLOED8cun();
+        }
         DengUT.openLOED();
+        if (baoCunBean.getDangqianChengShi2()!=null){
+            chengshi.setText(baoCunBean.getDangqianChengShi2());
+        }
         if (baoCunBean.isHuoTi()) {
             switchs.setChecked(true);
         } else {
@@ -203,13 +221,6 @@ public class SheZhiActivity2 extends Activity {
                 finish();
             }
         });
-
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                initJsonData();
-//            }
-//        }).start();
 
 
         switchs5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -789,8 +800,11 @@ public class SheZhiActivity2 extends Activity {
         this.sendBroadcast(intent);
         sendBroadcast(new Intent("com.android.internal.policy.impl.showNavigationBar"));
         sendBroadcast(new Intent("com.android.systemui.statusbar.phone.statusopen"));
-        HwitManager.HwitSetShowSystemBar(SheZhiActivity2.this);
-        HwitManager.HwitSetDisableSlideShowSysBar(0);
+        if (jiqiType==2){//8寸防水面板机
+            HwitManager.HwitSetShowSystemBar(SheZhiActivity2.this);
+            HwitManager.HwitSetDisableSlideShowSysBar(0);
+        }
+
     }
 
 
@@ -1086,6 +1100,20 @@ public class SheZhiActivity2 extends Activity {
                 chengshi.setText(tx);
                 baoCunBean.setDangqianChengShi2(tx);
                 baoCunBeanDao.put(baoCunBean);
+                baoCunBean=baoCunBeanDao.get(123456);
+                if (baoCunBean.getDangqianChengShi2()!=null){
+                    switch (baoCunBean.getDangqianChengShi2()){
+                        case "天波":
+                            jiqiType=0;
+                            break;
+                        case "涂鸦":
+                            jiqiType=1;
+                            break;
+                        case "户外防水8寸屏":
+                            jiqiType=2;
+                            break;
+                    }
+                }
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

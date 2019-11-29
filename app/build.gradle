@@ -13,8 +13,8 @@ android {
         applicationId "com.ruitongai.mechanical"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 19
-        versionName "1.0.19"
+        versionCode 22
+        versionName "1.0.22"
         ndk {
             //选择要添加的对应cpu类型的.so库。
             abiFilters 'armeabi-v7a'
@@ -73,11 +73,11 @@ android {
 dependencies {
     implementation fileTree(include: '*.jar', dir: 'libs')
     //implementation(name: 'FacePassAndroidSDK-release', ext: 'aar')
-    implementation(name: 'paaccesscontrol-2.3.0', ext: 'aar')
+    implementation(name: 'paaccesscontrol-2.3.04', ext: 'aar')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.liulishuo.filedownloader:library:1.7.6'
     //文件下载库
     implementation 'com.jakewharton:butterknife:10.0.0'

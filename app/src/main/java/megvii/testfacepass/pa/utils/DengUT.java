@@ -58,19 +58,25 @@ public class DengUT {
 
     public static void closeWrite(){
         writeGpio(CAMERA_WHITE_PATH,0);
-        HwitManager.HwitSetIOValue(5,0);
     }
     public static void openWrite(){
         writeGpio(RED_LAMP_PATH,0); //关红灯
         writeGpio(GREEN_LAMP_PATH,0);//关绿灯
         writeGpio(GPIO7_PATH,1);
         writeGpio(CAMERA_WHITE_PATH,255);
+    }
+
+    public static void openWrite8cun(){
         HwitManager.HwitSetIOValue(5,1);
+    }
+    public static void closeWrite8cun(){
+        HwitManager.HwitSetIOValue(5,0);
     }
 
     public static void closeRed(){
         writeGpio(RED_LAMP_PATH,0);
     }
+
     public static void openRed(){
         writeGpio(GREEN_LAMP_PATH,0);//关绿灯
         writeGpio(GPIO7_PATH,0); // 关白灯
@@ -105,12 +111,16 @@ public class DengUT {
     public static void closeDool(){
         writeGpio(RELAY_CTL_PATH,0);
         TPS980PosUtil.setRelayPower(0);
+    }
+    public static void closeDool8cun(){
         HwitManager.HwitSetIOValue(9,0);
+    }
+    public static void openDool8cun(){
+        HwitManager.HwitSetIOValue(9,1);
     }
     public static void openDool(){
         writeGpio(RELAY_CTL_PATH,1);
         TPS980PosUtil.setRelayPower(1);
-        HwitManager.HwitSetIOValue(9,1);
     }
 
 
