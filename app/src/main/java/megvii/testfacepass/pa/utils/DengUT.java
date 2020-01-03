@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -71,6 +72,13 @@ public class DengUT {
     }
     public static void closeWrite8cun(){
         HwitManager.HwitSetIOValue(5,0);
+    }
+
+    public static void openWriteGaoTong8cun(){
+        writeFile("1");
+    }
+    public static void closeWriteGaoTong8cun(){
+        writeFile("0");
     }
 
     public static void closeRed(){
@@ -162,7 +170,19 @@ public class DengUT {
         return -1;
     }
 
+    private static void writeFile(String text){
+        File file = new File("/sys/class/gpio/gpio45/value");
+        FileOutputStream fis = null;
+        try {
+            fis = new FileOutputStream(file);
+            fis.write(text.getBytes());
+            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-   // public static
+
+    // public static
 
 }

@@ -37,7 +37,7 @@ import megvii.testfacepass.pa.dialogall.CommonData;
 import megvii.testfacepass.pa.dialogall.CommonDialogService;
 import megvii.testfacepass.pa.dialogall.ToastUtils;
 
-import static com.tencent.bugly.beta.tinker.TinkerManager.getApplication;
+
 
 
 /**
@@ -64,7 +64,7 @@ public class MyApplication extends Application implements Application.ActivityLi
     public static final String SDPATH2 = Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+"ruitongmbj";
     public static final String SDPATH3 = Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+"ruitongface";
    // protected OutputStream mOutputStream;
-    //这个是给东莞机房的
+    //这个是平安标准版2.4.0
     //public SerialPortFinder mSerialPortFinder = new SerialPortFinder();
     private SerialPort mSerialPort = null;
 
@@ -105,7 +105,7 @@ public class MyApplication extends Application implements Application.ActivityLi
         myApplication = this;
         BoxStore mBoxStore = MyObjectBox.builder().androidContext(this).build();
 
-        Bugly.init(getApplicationContext(), "90bbef222c", false);
+        Bugly.init(getApplicationContext(), "bb8f1f9237", false);
 
       //  Log.d("MyApplication","机器码"+ FileUtil.getSerialNumber(this) == null ? FileUtil.getIMSI() : FileUtil.getSerialNumber(this));
         //全局dialog

@@ -2,11 +2,14 @@ package megvii.testfacepass.pa.utils;
 
 
 import android.content.Context;
+
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
 
 import android.provider.Settings;
 import android.util.Log;
+
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -15,15 +18,18 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.pingan.ai.access.impl.OnPaAccessControlInitListener;
 import com.pingan.ai.access.manager.PaAccessControl;
-import com.pingan.ai.auth.common.SDKType;
 import com.pingan.ai.auth.manager.PaLicenseManager;
 
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.security.Key;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import javax.crypto.Cipher;
@@ -35,7 +41,6 @@ import io.objectbox.Box;
 import megvii.testfacepass.pa.MyApplication;
 import megvii.testfacepass.pa.beans.BangDingBean;
 import megvii.testfacepass.pa.beans.BaoCunBean;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -58,6 +63,9 @@ public class FaceInit {
 //				    .cookieJar(new CookiesManager())
             //         .retryOnConnectionFailure(true)
             .build();
+    private SharedPreferences mSharedPreferences;
+    static final String tokenApiUrl = "https://biap-dev-auth-test.pingan.com:10565/dev-auth-web/biap/demo/acticatecode/acquiretoken";
+    static final String device = "stest-dev";
 
     static {
         System.loadLibrary("ruitongnative");
@@ -65,16 +73,44 @@ public class FaceInit {
 
     public FaceInit(Context context) {
         this.context =context;
-
+        mSharedPreferences = context.getSharedPreferences("SP", Context.MODE_PRIVATE);
     }
-
-
-
 
 
     private  void initFacePassSDK(String s1, String s2, String s3, String id, String url2) {
 
-           initPaAccessControl(s1,s2,s3,id,url2);
+        new AcquireTokenAPI().requestToken(tokenApiUrl, s2, device, new AcquireTokenAPI.AcquireTokenListener() {
+            @Override
+            public void onSuccess(String response) {
+                String token;
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String code = jsonObject.getString("code");
+                    String msg = jsonObject.getString("msg");
+                    Log.e("ssss", "get token response json: " + response);
+                    if ("0".equals(code) && jsonObject.has("data")) {
+                        String dataJson = jsonObject.getString("data");
+                        JSONObject jsonObject1 = new JSONObject(dataJson);
+                        token = jsonObject1.getString("token");
+                        if (mSharedPreferences != null) {
+                            mSharedPreferences.edit().putString("token", token).apply();
+                        }
+                        initPaAccessControl(s1,s2,s3,id,url2,token);
+                    } else {
+                        EventBus.getDefault().post("获取token网络请求失败");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    EventBus.getDefault().post("获取token,Json解析异常");
+                }
+            }
+
+            @Override
+            public void onFail() {
+                EventBus.getDefault().post("获取token网络请求失败Fail");
+            }
+        });
+
 
     }
 
@@ -84,42 +120,50 @@ public class FaceInit {
 //        if (baoCunBean.getXgToken()==null || baoCunBean.getXgToken().equals("")){
 //            EventBus.getDefault().post("注册推送失败,请重启设备后再试");
 //        }else {
-            link_uplod(registration,baoCunBean.getHoutaiDiZhi());
-  //      }
+        link_uplod(registration,baoCunBean.getHoutaiDiZhi());
+        //      }
 
     }
 
-    private void initPaAccessControl(String url, String APP_ID, String APP_KEY, final String id, final String url2) {
+    private void initPaAccessControl(String url, String APP_ID, String APP_KEY, final String id, final String url2,String token) {
 
-        PaLicenseManager.getInstance().setAppId( APP_ID)
-                .setAppKey(APP_KEY)
-                .setURL(url)
-                .setSDKType(SDKType.ONEVN)
-                .initAuthority(context, new PaLicenseManager.InitListener() {
-                    @Override
-                    public void onInitSuccess(String s) {
-                        PaAccessControl paAccessControl = PaAccessControl.getInstance();
-                        paAccessControl.setLogEnable(true);
-                        paAccessControl.initPaAccessControl(MyApplication.myApplication, new OnPaAccessControlInitListener() {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                PaLicenseManager.getInstance()
+                        .setToken(token)
+                        .setURL(url)
+                        .setAppId(APP_KEY)
+                        .initAuthority(context, new PaLicenseManager.InitListener() {
                             @Override
-                            public void onSuccess() {
-                                EventBus.getDefault().post("激活成功");
-                                link_uplodeBD(id,url2);
+                            public void onInitSuccess(String authRes) {
+                                PaAccessControl paAccessControl = PaAccessControl.getInstance();
+                                paAccessControl.setLogEnable(true);
+                                paAccessControl.initPaAccessControl(MyApplication.myApplication, new OnPaAccessControlInitListener() {
+                                    @Override
+                                    public void onSuccess() {
+                                        executorService.shutdown();
+                                        EventBus.getDefault().post("激活成功");
+                                        link_uplodeBD(id,url2);
+                                    }
+
+                                    @Override
+                                    public void onError(final int message) {
+                                        executorService.shutdown();
+                                        EventBus.getDefault().post("激活失败"+message);
+                                    }
+                                });
+                            }
+                            @Override
+                            public void onInitFailed(int code) {
+                                executorService.shutdown();
+                                EventBus.getDefault().post("激活失败"+code);
                             }
 
-                            @Override
-                            public void onError(int i) {
-                                EventBus.getDefault().post("激活失败"+i);
-                            }
                         });
-
-                    }
-
-                    @Override
-                    public void onInitFailed(int i) {
-                        EventBus.getDefault().post("激活失败"+i);
-                    }
-                });
+            }
+        });
 
     }
 
@@ -140,7 +184,7 @@ public class FaceInit {
                 //.get()
                 .post(body)
                 .url(url+recess2(System.currentTimeMillis()));
-      //  Log.d("FaceInit", url + recess2(System.currentTimeMillis()));
+        //  Log.d("FaceInit", url + recess2(System.currentTimeMillis()));
         // step 3：创建 Call 对象
         Call call = okHttpClient.newCall(requestBuilder.build());
         //step 4: 开始异步请求
@@ -157,7 +201,7 @@ public class FaceInit {
                 String ss=null;
                 try{
                     ResponseBody body = response.body();
-                     ss=body.string().trim();
+                    ss=body.string().trim();
                     Log.d("AllConnects", "注册码"+ss);
                     final JsonObject jsonObject= parse(ss).getAsJsonObject();
                     String idid=jsonObject.get("id").getAsString();
@@ -172,7 +216,7 @@ public class FaceInit {
                     }catch (Exception eee){
                         EventBus.getDefault().post(e.getMessage()+"");
                     }
-                  //  Log.d("WebsocketPushMsg", e.getMessage()+"ttttt");
+                    //  Log.d("WebsocketPushMsg", e.getMessage()+"ttttt");
                 }
 
             }
@@ -200,12 +244,12 @@ public class FaceInit {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-              //  Log.d("AllConnects", "请求失败"+e.getMessage());
+                //  Log.d("AllConnects", "请求失败"+e.getMessage());
                 EventBus.getDefault().post("网络请求失败");
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-              //  Log.d("AllConnects", "请求成功"+call.request().toString());
+                //  Log.d("AllConnects", "请求成功"+call.request().toString());
                 //获得返回体
                 try{
                     ResponseBody body = response.body();
@@ -279,15 +323,15 @@ public class FaceInit {
 //                        }
 //                        inputStream.close();
 //                        bufferedReader.close();
-                        Log.d("FaceInit", s1s+" 2222222");
-                        Log.d("FaceInit", s2s+" 2222222");
-                        Log.d("FaceInit", s3s+" 2222222");
-                         baoCunBean.setAppurl(s1s);
-                         baoCunBean.setAppid(s2s);
-                         baoCunBean.setAppkey(s3s);
-                         baoCunBeanBox.put(baoCunBean);
+                    Log.d("FaceInit", s1s+" 2222222");
+                    Log.d("FaceInit", s2s+" 2222222");
+                    Log.d("FaceInit", s3s+" 2222222");
+                    baoCunBean.setAppurl(s1s);
+                    baoCunBean.setAppid(s2s);
+                    baoCunBean.setAppkey(s3s);
+                    baoCunBeanBox.put(baoCunBean);
 
-                        initFacePassSDK(s1s,s2s,s3s,dingBean.getId(),url2);
+                    initFacePassSDK(s1s,s2s,s3s,dingBean.getId(),url2);
 
 //                    } catch (Exception e) {
 //                        e.printStackTrace();
@@ -295,7 +339,7 @@ public class FaceInit {
 //                    }
 
                 }catch (Exception e){
-                  //  Log.d("WebsocketPushMsg", e.getMessage()+"ttttt");
+                    //  Log.d("WebsocketPushMsg", e.getMessage()+"ttttt");
                     EventBus.getDefault().post("激活设备失败"+e.getMessage());
                 }
 
@@ -458,28 +502,28 @@ public class FaceInit {
             @Override
             public void onFailure(Call call, IOException e)
             {
-              //  Log.d("AllConnects", "请求失败"+e.getMessage());
+                //  Log.d("AllConnects", "请求失败"+e.getMessage());
                 EventBus.getDefault().post("网络请求失败");
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-              //  Log.d("AllConnects", "请求成功"+call.request().toString());
+                //  Log.d("AllConnects", "请求成功"+call.request().toString());
                 //获得返回体
                 try{
                     ResponseBody body = response.body();
                     String ss=body.string().trim();
-                  //  Log.d("AllConnects", "上传绑定成功状态"+ss);
-                   JsonObject jsonObject= parse(ss).getAsJsonObject();
+                    //  Log.d("AllConnects", "上传绑定成功状态"+ss);
+                    JsonObject jsonObject= parse(ss).getAsJsonObject();
 
-                   EventBus.getDefault().post(jsonObject.get("message").getAsString());
+                    EventBus.getDefault().post(jsonObject.get("message").getAsString());
 
 //					Gson gson=new Gson();
 //					final HuiYiInFoBean renShu=gson.fromJson(jsonObject,HuiYiInFoBean.class);
 
                 }catch (Exception e){
                     EventBus.getDefault().post("绑定设备异常"+e.getMessage());
-                //    Log.d("WebsocketPushMsg", e.getMessage()+"ttttt");
+                    //    Log.d("WebsocketPushMsg", e.getMessage()+"ttttt");
                 }
 
             }

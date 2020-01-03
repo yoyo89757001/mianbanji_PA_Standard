@@ -161,6 +161,7 @@ public class SheZhiActivity2 extends Activity {
         options1Items.add(new JsonBean("天波"));
         options1Items.add(new JsonBean("涂鸦"));
         options1Items.add(new JsonBean("户外防水8寸屏"));
+        options1Items.add(new JsonBean("高通8寸屏"));
         baoCunBeanDao = MyApplication.myApplication.getBaoCunBeanBox();
         // chengShiIDBeanBox = MyApplication.myApplication.getChengShiIDBeanBox();
         baoCunBean = baoCunBeanDao.get(123456L);
@@ -174,6 +175,9 @@ public class SheZhiActivity2 extends Activity {
                     break;
                 case "户外防水8寸屏":
                     jiqiType=2;
+                    break;
+                case "高通8寸屏":
+                    jiqiType=3;
                     break;
             }
         }

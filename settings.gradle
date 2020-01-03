@@ -1,2 +1,2 @@
-include ':app', ':mianbanji_ks_standard'
-rootProject.name='mianbanji_PA_Standard'
+include ':app'
+rootProject.name='mianbanji_PA_Standard2_4_0'
